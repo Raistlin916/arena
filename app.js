@@ -14,11 +14,19 @@ const jade = new Jade({
 });
 jade.use(app);
 
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
+const compiler = webpack(webpackConfig);
+
 
 app.use(logger())
   .use(favicon())
   .use(router.routes())
   .use(router.allowedMethods())
+  .use(require('./lib/koa_webpack_middleware')(compiler, {
+  	noInfo: true,
+  	publicPath: webpackConfig.output.publicPath
+  }))
   .use(async (ctx) => {
   	return send(ctx, ctx.path, { root: path.join(__dirname, '/static') });
 	})

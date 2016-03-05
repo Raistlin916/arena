@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "webpack-dev-middleware": "^1.5.1"
   }
 }
