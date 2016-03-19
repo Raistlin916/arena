@@ -5,9 +5,17 @@ import DockMonitor from 'redux-devtools-dock-monitor';
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDom from 'react-dom';
-import { createStore } from 'redux';
-import App from './containers/App';
-import reducers from './reducers';
+import { createStore, combineReducers } from 'redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+
+import { App, Hall } from './components';
+import * as reducers from './reducers';
+
+const reducer = combineReducers({
+  ...reducers,
+  routing: routerReducer
+});
 
 
 const DevTools = createDevTools(
@@ -16,12 +24,18 @@ const DevTools = createDevTools(
   </DockMonitor>
 )
 
-const store = createStore(reducers, DevTools.instrument());
+const store = createStore(reducer, DevTools.instrument());
+const history = syncHistoryWithStore(browserHistory, store);
+
 
 ReactDom.render(
   <Provider store={store}>
   	<div>
-    	<App />
+    	<Router history={history}>
+        <Route path="/" component={App}>
+        	<IndexRoute component={Hall}/>
+        </Route>
+      </Router>
     	<DevTools />
     </div>
   </Provider>,

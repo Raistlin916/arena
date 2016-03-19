@@ -1,14 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { startSearch } from '../actions';
 
-export default class Hall extends React.Component {
-  render() {
-    return (
-      <div>
-      	<button onClick={()=>this.props.startSearch()}>Search</button>
-      	<div>
-      		online: {this.props.online.onlineNum}
-      	</div>
-      </div>
-    );
-  }
+function Hall ({ startSearch, onlineNum }) {
+	return (
+    <div>
+    	<button onClick={startSearch}>Search</button>
+    	<div>
+    		online: {onlineNum}
+    	</div>
+    </div>
+  );
 }
+
+export default connect(
+	state => ({ onlineNum: state.online.onlineNum }),
+	{ startSearch }
+)(Hall);
