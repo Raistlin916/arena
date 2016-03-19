@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default class HelloWorld extends React.Component {
+export default class Hall extends React.Component {
   render() {
     return (
       <div>
-      	<button onClick={()=>this.props.onlineIncrement(5)}>Search</button>
+      	<button onClick={()=>this.props.startSearch()}>Search</button>
       	<div>
       		online: {this.props.online.onlineNum}
       	</div>
