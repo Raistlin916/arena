@@ -1,11 +1,8 @@
-const TOGGLE_HELLOWORLD = 'TOGGLE_HELLOWORLD';
+export const ONLINE_NUMBER_CHANGE = 'ONLINE_NUMBER_CHANGE';
 
-export const actionTypes = {
-	TOGGLE_HELLOWORLD
-};
-
-export const actions = {
-	toggleHelloWorld: () => {
-		return {type: TOGGLE_HELLOWORLD}
-	}
+export const onlineIncrement = number => {
+	return { 
+		type: ONLINE_NUMBER_CHANGE,
+		number
+	};
 }

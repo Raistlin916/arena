@@ -4,8 +4,10 @@ export default class HelloWorld extends React.Component {
   render() {
     return (
       <div>
-      	<p>{this.props.visibility ? 'hello world' : ''}</p>
-      	<button onClick={this.props.toggleHelloWorld}>toggle</button>
+      	<button onClick={()=>this.props.onlineIncrement(5)}>Search</button>
+      	<div>
+      		online: {this.props.online.onlineNum}
+      	</div>
       </div>
     );
   }

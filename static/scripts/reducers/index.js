@@ -1,16 +1,20 @@
 import { combineReducers } from 'redux';
-import { actionTypes } from '../actions';
+import { ONLINE_NUMBER_CHANGE } from '../actions';
 
-const reducers = (state = {}, action) => {
-	switch (action.type) {
-		case actionTypes.TOGGLE_HELLOWORLD:
-			return { 
-				...state, 
-				...{visibility: !state.visibility}
-			};
-		default:
-			return state;
+const initialState = {
+	onlineNum: 0
+};
+
+const online = (state = initialState, action) => {
+	const { type } = action;
+	
+	if (type == ONLINE_NUMBER_CHANGE) {
+		return { ...state, ...{ onlineNum: state.onlineNum + action.number }};
 	}
+
+	return state;
 }
 
-export default reducers;
+export default combineReducers({
+	online
+});
