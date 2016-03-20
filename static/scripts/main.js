@@ -9,7 +9,7 @@ import { createStore, combineReducers } from 'redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-import { App, Hall } from './components';
+import { App, Hall } from './containers';
 import * as reducers from './reducers';
 
 const reducer = combineReducers({

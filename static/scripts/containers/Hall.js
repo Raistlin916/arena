@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { startSearch } from '../actions';
 
-function Hall ({ startSearch, onlineNum }) {
+function Hall ({ startSearch, onlineNum, isSearching }) {
 	return (
     <div>
-    	<button onClick={startSearch}>Search</button>
+    	<button onClick={startSearch}>{ isSearching ? 'Searching' : 'Search'}</button>
     	<div>
     		online: {onlineNum}
     	</div>
@@ -14,6 +14,6 @@ function Hall ({ startSearch, onlineNum }) {
 }
 
 export default connect(
-	state => ({ onlineNum: state.online.onlineNum }),
+	state => state.online,
 	{ startSearch }
 )(Hall);
