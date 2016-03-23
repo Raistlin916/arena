@@ -1,19 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startSearch } from '../actions';
+import { requestSearch } from '../actions';
+import { Timer } from '../components';
 
-function Hall ({ startSearch, onlineNum, isSearching }) {
-	return (
+function Hall ({ requestSearch, online, matching }) {
+  const { isSearching } = matching
+  return (
     <div>
-    	<button onClick={startSearch}>{ isSearching ? 'Searching' : 'Search'}</button>
-    	<div>
-    		online: {onlineNum}
-    	</div>
+      <button onClick={requestSearch}>{ isSearching ? 'Searching' : 'Search' }</button>
+      <div>
+        online: {online.onlineNum}
+      </div>
+      { isSearching ? <div>已搜索: <Timer/></div> : '' }
     </div>
   );
 }
 
 export default connect(
-	state => state.online,
-	{ startSearch }
+	({online, matching}) => ({online, matching}),
+	{ requestSearch }
 )(Hall);
