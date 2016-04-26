@@ -1,33 +1,32 @@
-'use strict';
+import Koa from 'koa'
+import logger from 'koa-logger'
+import favicon from 'koa-favicon'
+import Jade from 'koa-jade'
+import send from 'koa-send'
+import path from 'path'
+import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware'
 
-const Koa = require('koa');
-const logger = require('koa-logger');
-const favicon = require('koa-favicon');
-const Jade = require('koa-jade');
-const send = require('koa-send');
-const path = require('path');
+import router from './routes'
+import webpack from 'webpack'
+import webpackConfig from './webpack.config'
 
-const app = new Koa();
-const router = require('./routes');
+const app = new Koa()
 const jade = new Jade({
   viewPath: './views'
-});
-jade.use(app);
-
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.config');
-const compiler = webpack(webpackConfig);
-
+})
+jade.use(app)
+const compiler = webpack(webpackConfig)
 
 app.use(logger())
   .use(favicon())
+  .use(devMiddleware(compiler, {
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath
+  }))
+  .use(hotMiddleware(compiler))
   .use(router.routes())
   .use(router.allowedMethods())
-  .use(require('./lib/koa_webpack_middleware')(compiler, {
-  	noInfo: true,
-  	publicPath: webpackConfig.output.publicPath
-  }))
   .use(async (ctx) => {
-  	return send(ctx, ctx.path, { root: path.join(__dirname, '/static') });
-	})
-  .listen(3000, () => console.log('server listening on port 3000'));
+    return send(ctx, ctx.path, { root: path.join(__dirname, '/static') })
+  })
+  .listen(3000, () => console.log('server listening on port 3000'))
