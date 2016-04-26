@@ -6,18 +6,18 @@ import Hall from './components/Hall'
 
 
 const reducer = (state, action) => {
-  return state;
+  return state
 }
 const initialState = {
   onlineNumber: 0,
   userInfo: {
-    username: 'gaok'
+    username: 'gaok',
   }
 }
 const store = createStore(reducer, initialState);
 
 ReactDom.render(
   <Provider store={store} >
-    <Hall/>
-  </Provider>
-, document.getElementById('container'))
+    <Hall />
+  </Provider>,
+document.getElementById('container'))
