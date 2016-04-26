@@ -4,7 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "NODE_ENV=dev node index.babel.js"
+    "build": "NODE_ENV=production webpack --progress",
+    "dev": "npm run dev_server | npm run webpack",
+    "webpack": "NODE_ENV=dev node webpack-dev-server.js",
+    "dev_server": "NODE_ENV=dev node index.babel.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,18 +23,20 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-preset-stage-3": "^6.3.13",
     "koa": "^2.0.0",
+    "koa-convert": "^1.2.0",
     "koa-favicon": "^2.0.0",
     "koa-jade": "^2.1.0",
     "koa-logger": "^2.0.0",
+    "koa-proxy": "^0.5.0",
     "koa-router": "^7.0.1",
-    "koa-send": "^3.1.1"
+    "koa-send": "^3.1.1",
+    "koa-static-cache": "^3.1.7"
   },
   "devDependencies": {
-    "koa-webpack-middleware": "^1.0.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.0",
     "redux": "^3.3.1",
-    "webpack-dev-middleware": "^1.5.1"
+    "webpack-dev-server": "^1.14.1"
   }
 }
