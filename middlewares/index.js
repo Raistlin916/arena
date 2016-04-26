@@ -1,2 +1,2 @@
-export * from './webpack.dev'
-export * from './webpack.prod'
+export { default as webpackDev } from './webpack.dev'
+export { default as webpackProd } from './webpack.prod'

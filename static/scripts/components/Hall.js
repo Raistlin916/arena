@@ -15,7 +15,6 @@ export default class Hall extends Component {
 				<UserInfo userInfo={this.props.userInfo}/>
 				<button>search</button>
 				<p>online: {this.props.onlineNumber}</p>
-				<p>hello world4</p>
 			</div>
 		)
 	}

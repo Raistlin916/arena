@@ -6,7 +6,11 @@ const env = process.env.NODE_ENV
 const config = {
   devtool: env === 'dev' && 'source-map',
   entry: {
-    main: './static/scripts/main.js'
+    main:  [
+      'webpack-dev-server/client?http://localhost:8081',
+      'webpack/hot/only-dev-server',
+      './static/scripts/main'
+    ]
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -17,23 +21,16 @@ const config = {
     filename: '[name].bundle.js'
   },
   module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          cacheDirectory: true,
-          presets: ['es2015', 'react', 'stage-0'],
-          plugins: ['transform-decorators-legacy']
-        }
-      }
-    ]
+    loaders: [{
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      loaders: ['react-hot', 'babel']
+    }]
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env),
     })
