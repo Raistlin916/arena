@@ -1,5 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
+const precss = require('precss')
+const autoprefixer = require('autoprefixer')
 
 const env = process.env.NODE_ENV
 
@@ -9,11 +11,12 @@ const config = {
     main:  [
       'webpack-dev-server/client?http://localhost:8081',
       'webpack/hot/only-dev-server',
+      'babel-polyfill',
       './static/scripts/main'
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js']
   },
   output: {
     path: path.join(__dirname, './static/build/'),
@@ -22,15 +25,20 @@ const config = {
   },
   module: {
     loaders: [{
-      test: /\.jsx?$/,
+      test: /\.js$/,
       exclude: /node_modules/,
-      loaders: ['react-hot', 'babel']
+      loaders: ['babel']
+    }, {
+      test: /\.s?css$/,
+      loaders: ['style', 'css?-minimize', 'sass', 'postcss-loader']
     }]
+  },
+  postcss: function postcss() {
+    return [precss, autoprefixer]
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env),
     })
@@ -40,15 +48,18 @@ const config = {
 if (env === 'production') {
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-        screw_ie8: true,
-        warnings: false,
+      compress: {
+        warnings: false
       },
+      test: /\.js($|\?)/i
     })
   )
+  Object.assign(config.resolve, {
+    alias: {
+      react: 'react-lite',
+      'react-dom': 'react-lite'
+    }
+  })
 }
 
 module.exports = config
