@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'dev') {
 
 app.use(router.routes())
 app.use(router.allowedMethods())
-app.use(async (ctx) => {
-    return send(ctx, ctx.path, { root: path.join(__dirname, '/static') })
-  })
-  .listen(3000, () => console.log('server listening on port 3000'))
+app.use(async (ctx) =>
+  send(ctx, ctx.path, { root: path.join(__dirname, '/static') })
+)
+.listen(3000, () => console.log('server listening on port 3000'))
