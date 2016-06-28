@@ -6,5 +6,4 @@ router.get('/', async ctx => {
   ctx.render('index')
 })
 
-
 export default router

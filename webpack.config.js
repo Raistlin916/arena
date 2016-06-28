@@ -8,10 +8,8 @@ const env = process.env.NODE_ENV
 const config = {
   devtool: env === 'dev' && 'source-map',
   entry: {
-    main:  [
+    main: [
       'webpack-dev-server/client?http://localhost:8081',
-      'webpack/hot/only-dev-server',
-      'babel-polyfill',
       './static/scripts/main'
     ]
   },
@@ -54,12 +52,6 @@ if (env === 'production') {
       test: /\.js($|\?)/i
     })
   )
-  Object.assign(config.resolve, {
-    alias: {
-      react: 'react-lite',
-      'react-dom': 'react-lite'
-    }
-  })
 }
 
 module.exports = config
