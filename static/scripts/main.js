@@ -1,3 +1,3 @@
 import { createStore } from 'redux'
 
-console.log(1)
+var a = 1
