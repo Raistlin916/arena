@@ -1,33 +1,14 @@
-import Input from './components/Input'
+import World from './proton/World'
+import Ground from './components/ground'
+import Player from './components/player'
 
 const canvas = document.querySelector('canvas')
 canvas.width = 500
 canvas.height = 500
-const ctx = canvas.getContext('2d')
-const { width, height } = canvas
 
-const playerCoord = { x: 10, y: 10 }
+const world = new World(canvas)
+world.run()
 
-function drawPlayer() {
-  ctx.save()
-  ctx.fillStyle = 'red'
-  ctx.fillRect(playerCoord.x, playerCoord.y, 5, 5)
-  ctx.restore()
-}
+const ground = new Ground(world)
+const player = new Player(world)
 
-function round() {
-  requestAnimationFrame(round)
-
-  ctx.clearRect(0, 0, width, height)
-  ctx.fillStyle = 'grey'
-  ctx.fillRect(0, 0, width, height)
-  drawPlayer()
-}
-round()
-
-
-const input = new Input()
-input.on('turnWheel', () => {
-  playerCoord.x += 10
-  playerCoord.y += 10
-})

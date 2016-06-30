@@ -4,7 +4,6 @@ export default class Input extends EventEmitter {
   constructor() {
     super()
     this.bindEvent()
-    console.log(this)
   }
 
   bindEvent() {
