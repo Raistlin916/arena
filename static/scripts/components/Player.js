@@ -2,8 +2,10 @@ import Entity from '../proton/Entity'
 import Input from '../proton/Input'
 
 export default class Player extends Entity {
-  constructor(...arg) {
-    super(...arg)
+  constructor(world, config) {
+    super(world, config)
+
+    this.color = config.color
 
     this.input = new Input()
     this.input.on('turnWheel', () => {
@@ -14,8 +16,10 @@ export default class Player extends Entity {
 
   render(ctx) {
     ctx.save()
-    ctx.fillStyle = 'red'
-    ctx.fillRect(this.coord.x, this.coord.y, 5, 5)
+    ctx.translate(this.coord.x + 2.5, this.coord.y + 2.5)
+    ctx.rotate(this.drawingRotate)
+    ctx.fillStyle = this.color
+    ctx.fillRect(-2.5, -2.5, 5, 5)
     ctx.restore()
   }
 }
