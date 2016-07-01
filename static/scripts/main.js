@@ -10,5 +10,5 @@ const world = new World(canvas)
 world.run()
 
 const ground = new Ground(world)
-const player = new Player(world)
+const player = new Player(world, { coord: { x: 10, y: 10 } })
 

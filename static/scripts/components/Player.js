@@ -1,11 +1,10 @@
-import Obj from '../proton/Obj'
+import Entity from '../proton/Entity'
 import Input from '../proton/Input'
 
-export default class Player extends Obj {
-  constructor(world) {
-    super(world)
+export default class Player extends Entity {
+  constructor(...arg) {
+    super(...arg)
 
-    this.coord = { x: 0, y: 0 }
     this.input = new Input()
     this.input.on('turnWheel', () => {
       this.coord.x += 10
