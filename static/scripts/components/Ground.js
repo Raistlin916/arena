@@ -1,8 +1,8 @@
 import Obj from '../proton/Obj'
 
 export default class Ground extends Obj {
-  constructor(world) {
-    super(world)
+  constructor() {
+    super()
 
     this.coord = { x: 0, y: 0 }
   }

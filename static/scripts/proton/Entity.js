@@ -2,8 +2,8 @@ import Obj from './Obj'
 import Vector from '../lib/Vector'
 
 export default class Entity extends Obj {
-  constructor(world, config = {}) {
-    super(world, config)
+  constructor(config = {}) {
+    super(config)
 
     if (!config.coord) {
       throw new Error('Entity need coord')

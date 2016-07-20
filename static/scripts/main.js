@@ -9,9 +9,10 @@ canvas.height = 500
 const world = new World(canvas)
 world.run()
 
-const ground = new Ground(world)
-const player = new Player(world, {
+const ground = new Ground()
+const player = new Player({
   coord: { x: 20, y: 10 },
   color: 'yellow'
 })
-
+world.add(ground)
+world.add(player)

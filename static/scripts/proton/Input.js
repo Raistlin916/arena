@@ -1,16 +1,45 @@
 import EventEmitter from '../lib/EventEmitter'
 
+const keyMap = {
+  39: 'right',
+  37: 'left',
+  38: 'top',
+  40: 'bottom'
+}
+
 export default class Input extends EventEmitter {
   constructor() {
     super()
     this.bindEvent()
+    this.activeMap = {}
   }
 
   bindEvent() {
-    document.body.addEventListener('keydown', e => {
-      if ([38, 39, 40, 37].indexOf(e.which) !== -1) {
-        this.emit('turnWheel', {})
+    document.body.addEventListener('keydown', this.handleEvent('start'))
+    document.body.addEventListener('keyup', this.handleEvent('end'))
+  }
+
+  handleEvent(type) {
+    return (e) => {
+      const keyName = keyMap[e.which]
+      if (!keyName) {
+        return
       }
-    })
+      if (type === 'start') {
+        if (this.activeMap[keyName]) {
+          return
+        }
+        this.activeMap[keyName] = true
+      }
+
+      if (type === 'end') {
+        if (!this.activeMap[keyName]) {
+          return
+        }
+        delete this.activeMap[keyName]
+      }
+
+      this.emit('turnWheel', { keyName, type })
+    }
   }
 }
