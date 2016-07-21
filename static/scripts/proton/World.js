@@ -40,6 +40,9 @@ export default class World {
       this.totalTime += dt
 
       this.objects.forEach(item => {
+        if (item.isDead) {
+          return this.remove(item)
+        }
         item.update(dt)
       })
 

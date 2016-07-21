@@ -4,6 +4,16 @@ export default class Bullet extends Entity {
   constructor(...args) {
     super(...args)
     this.radius = 2
+    this.distance = 0
+  }
+  update(dt) {
+    if (this.distance > 100) {
+      this.isDead = true
+    }
+    this.previousCoord = this.coord.clone()
+    super.update(dt)
+
+    this.distance += this.coord.clone().sub(this.previousCoord).len()
   }
   render(ctx) {
     ctx.fillStyle = 'green'

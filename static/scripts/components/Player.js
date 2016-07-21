@@ -18,7 +18,7 @@ export default class Player extends Entity {
     this.speed = 100
     this.input.on('turnWheel', e => {
       this.handleTurnWheel(e)
-      this.handleBullets(e)
+      this.emmitBullets(e)
     })
   }
 
@@ -42,21 +42,26 @@ export default class Player extends Entity {
     this.velocity.add(increment)
   }
 
-  handleBullets(e) {
+  emmitBullets(e) {
     if (e.keyName === 'space' && e.type === 'end') {
       this.world.add(new Bullet({
         coord: this.centerCoord,
-        velocity: { x: 500, y: 0 }
+        velocity: { x: 0, y: -500 }
       }))
     }
   }
 
   render(ctx) {
     ctx.save()
-    // ctx.translate(this.centerCoord.x, this.centerCoord.y)
-    // ctx.rotate(this.drawingRotate)
+    ctx.translate(this.centerCoord.x, this.centerCoord.y)
+    ctx.rotate(this.drawingRotate)
     ctx.fillStyle = this.color
-    ctx.fillRect(this.coord.x, this.coord.y, this.width, this.height)
+    ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height)
+    ctx.beginPath()
+    ctx.moveTo(0, 0)
+    ctx.lineTo(0, -this.height / 2 - 3)
+    ctx.strokeStyle = 'red'
+    ctx.stroke()
     ctx.restore()
   }
 }

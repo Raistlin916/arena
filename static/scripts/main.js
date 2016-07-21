@@ -14,7 +14,7 @@ world.run()
 
 const ground = new Ground()
 const player = new Player({
-  coord: { x: 0, y: 0 },
+  coord: { x: 50, y: 50 },
   color: 'yellow',
   world
 })
