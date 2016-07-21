@@ -1,9 +1,10 @@
 import EventEmitter from '../lib/EventEmitter'
 
 const keyMap = {
-  39: 'right',
+  32: 'space',
   37: 'left',
   38: 'top',
+  39: 'right',
   40: 'bottom'
 }
 

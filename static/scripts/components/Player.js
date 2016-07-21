@@ -1,45 +1,61 @@
 import Entity from '../proton/Entity'
 import Input from '../proton/Input'
+import Bullet from './Bullet'
 
 export default class Player extends Entity {
   constructor(config) {
     super(config)
 
     this.color = config.color
+    this.world = config.world
 
     this.input = new Input()
     this.direction = 0
 
-    const speed = 50
+    this.speed = 100
+    this.sideLength = 10
     this.input.on('turnWheel', e => {
-      const increment = { x: 0, y: 0 }
-      if (e.keyName === 'left') {
-        increment.x = -speed
-      }
-      if (e.keyName === 'right') {
-        increment.x = speed
-      }
-      if (e.keyName === 'top') {
-        increment.y = -speed
-      }
-      if (e.keyName === 'bottom') {
-        increment.y = speed
-      }
-
-      if (e.type === 'end') {
-        increment.x *= -1
-        increment.y *= -1
-      }
-      this.velocity.add(increment)
+      this.handleTurnWheel(e)
+      this.handleBullets(e)
     })
   }
 
+  handleTurnWheel(e) {
+    const { speed } = this
+    const increment = { x: 0, y: 0 }
+    if (e.keyName === 'left') {
+      increment.x = -speed
+    } else if (e.keyName === 'right') {
+      increment.x = speed
+    } else if (e.keyName === 'top') {
+      increment.y = -speed
+    } else if (e.keyName === 'bottom') {
+      increment.y = speed
+    }
+
+    if (e.type === 'end') {
+      increment.x *= -1
+      increment.y *= -1
+    }
+    this.velocity.add(increment)
+  }
+
+  handleBullets(e) {
+    if (e.keyName === 'space' && e.type === 'end') {
+      this.world.add(new Bullet({
+        coord: this.coord,
+        velocity: { x: 500, y: 0 }
+      }))
+    }
+  }
+
   render(ctx) {
+    const halfSideLength = this.sideLength / 2
     ctx.save()
-    ctx.translate(this.coord.x + 2.5, this.coord.y + 2.5)
+    ctx.translate(this.coord.x + halfSideLength, this.coord.y + halfSideLength)
     ctx.rotate(this.drawingRotate)
     ctx.fillStyle = this.color
-    ctx.fillRect(-2.5, -2.5, 5, 5)
+    ctx.fillRect(-halfSideLength, -halfSideLength, this.sideLength, this.sideLength)
     ctx.restore()
   }
 }
