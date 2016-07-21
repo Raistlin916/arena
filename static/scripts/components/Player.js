@@ -4,7 +4,10 @@ import Bullet from './Bullet'
 
 export default class Player extends Entity {
   constructor(config) {
-    super(config)
+    super(Object.assign({
+      width: 10,
+      height: 10
+    }, config))
 
     this.color = config.color
     this.world = config.world
@@ -13,7 +16,6 @@ export default class Player extends Entity {
     this.direction = 0
 
     this.speed = 100
-    this.sideLength = 10
     this.input.on('turnWheel', e => {
       this.handleTurnWheel(e)
       this.handleBullets(e)
@@ -43,19 +45,18 @@ export default class Player extends Entity {
   handleBullets(e) {
     if (e.keyName === 'space' && e.type === 'end') {
       this.world.add(new Bullet({
-        coord: this.coord,
+        coord: this.centerCoord,
         velocity: { x: 500, y: 0 }
       }))
     }
   }
 
   render(ctx) {
-    const halfSideLength = this.sideLength / 2
     ctx.save()
-    ctx.translate(this.coord.x + halfSideLength, this.coord.y + halfSideLength)
-    ctx.rotate(this.drawingRotate)
+    // ctx.translate(this.centerCoord.x, this.centerCoord.y)
+    // ctx.rotate(this.drawingRotate)
     ctx.fillStyle = this.color
-    ctx.fillRect(-halfSideLength, -halfSideLength, this.sideLength, this.sideLength)
+    ctx.fillRect(this.coord.x, this.coord.y, this.width, this.height)
     ctx.restore()
   }
 }

@@ -12,6 +12,8 @@ export default class Entity extends Obj {
     config = Object.assign({
       velocity: { x: 0, y: 0 },
       acc: { x: 0, y: 0 },
+      width: 1,
+      height: 1,
       drawingRotate: 0
     }, config)
 
@@ -19,11 +21,22 @@ export default class Entity extends Obj {
     this.velocity = new Vector(config.velocity)
     this.acc = new Vector(config.acc)
     this.drawingRotate = config.drawingRotate
+    this.width = config.width
+    this.height = config.height
+    this.centerCoord = new Vector({
+      x: config.coord.x + this.width / 2,
+      y: config.coord.y + this.height / 2
+    })
   }
 
   update(dt) {
     this.velocity.add(this.acc.clone().scale(dt, dt))
     this.coord.add(this.velocity.clone().scale(dt, dt))
+
+    this.centerCoord = new Vector({
+      x: this.coord.x + this.width / 2,
+      y: this.coord.y + this.height / 2
+    })
   }
 
   render() {
