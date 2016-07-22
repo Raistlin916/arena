@@ -7,7 +7,7 @@ export default class Bullet extends Entity {
     this.distance = 0
   }
   update(dt) {
-    if (this.distance > 100) {
+    if (this.distance > 300) {
       this.isDead = true
     }
     this.previousCoord = this.coord.clone()

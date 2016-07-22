@@ -1,8 +1,8 @@
-import Entity from '../proton/Entity'
+import PolarEntity from '../proton/PolarEntity'
 import Input from '../proton/Input'
 import Bullet from './Bullet'
 
-export default class Player extends Entity {
+export default class Player extends PolarEntity {
   constructor(config) {
     super(Object.assign({
       width: 10,
@@ -15,7 +15,7 @@ export default class Player extends Entity {
     this.input = new Input()
     this.direction = 0
 
-    this.speed = 100
+
     this.input.on('turnWheel', e => {
       this.handleTurnWheel(e)
       this.emmitBullets(e)
@@ -23,38 +23,34 @@ export default class Player extends Entity {
   }
 
   handleTurnWheel(e) {
-    const { speed } = this
-    const increment = { x: 0, y: 0 }
     if (e.keyName === 'left') {
-      increment.x = -speed
+      this.speedOfRotate = e.type === 'end' ? 0 : -90
     } else if (e.keyName === 'right') {
-      increment.x = speed
+      this.speedOfRotate = e.type === 'end' ? 0 : 90
     } else if (e.keyName === 'top') {
-      increment.y = -speed
+      this.speed = e.type === 'end' ? 0 : 100
     } else if (e.keyName === 'bottom') {
-      increment.y = speed
+      this.speed = e.type === 'end' ? 0 : -100
     }
-
-    if (e.type === 'end') {
-      increment.x *= -1
-      increment.y *= -1
-    }
-    this.velocity.add(increment)
   }
 
   emmitBullets(e) {
     if (e.keyName === 'space' && e.type === 'end') {
       this.world.add(new Bullet({
         coord: this.centerCoord,
-        velocity: { x: 0, y: -500 }
+        velocity: this.direction.clone().scale(500, 500)
       }))
     }
+  }
+
+  update(dt) {
+    super.update(dt)
   }
 
   render(ctx) {
     ctx.save()
     ctx.translate(this.centerCoord.x, this.centerCoord.y)
-    ctx.rotate(this.drawingRotate)
+    ctx.rotate(this.radiansOfAngle)
     ctx.fillStyle = this.color
     ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height)
     ctx.beginPath()

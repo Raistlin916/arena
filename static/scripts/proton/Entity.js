@@ -13,14 +13,12 @@ export default class Entity extends Obj {
       velocity: { x: 0, y: 0 },
       acc: { x: 0, y: 0 },
       width: 1,
-      height: 1,
-      drawingRotate: 0
+      height: 1
     }, config)
 
     this.coord = new Vector(config.coord)
     this.velocity = new Vector(config.velocity)
     this.acc = new Vector(config.acc)
-    this.drawingRotate = config.drawingRotate
     this.width = config.width
     this.height = config.height
     this.centerCoord = new Vector({
