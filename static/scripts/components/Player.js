@@ -24,9 +24,9 @@ export default class Player extends PolarEntity {
 
   handleTurnWheel(e) {
     if (e.keyName === 'left') {
-      this.speedOfRotate = e.type === 'end' ? 0 : -90
+      this.speedOfRotate = e.type === 'end' ? 0 : -180
     } else if (e.keyName === 'right') {
-      this.speedOfRotate = e.type === 'end' ? 0 : 90
+      this.speedOfRotate = e.type === 'end' ? 0 : 180
     } else if (e.keyName === 'top') {
       this.speed = e.type === 'end' ? 0 : 100
     } else if (e.keyName === 'bottom') {

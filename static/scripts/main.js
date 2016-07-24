@@ -1,6 +1,7 @@
 import World from './proton/World'
-import Ground from './components/ground'
-import Player from './components/player'
+import Ground from './components/Ground'
+import Player from './components/Player'
+import Box from './components/Box'
 
 const canvas = document.querySelector('canvas')
 canvas.width = 500
@@ -20,3 +21,8 @@ const player = new Player({
 })
 world.add(ground)
 world.add(player)
+
+
+world.add(new Box({
+  coord: { x: 20, y: 20 }
+}))
