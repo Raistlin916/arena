@@ -1,4 +1,5 @@
 import '../utils/raf_polyfill'
+import Retrieve from './quarks/Retrieve'
 
 export default class World {
 
@@ -12,6 +13,8 @@ export default class World {
       width: canvas.width,
       height: canvas.height
     }
+
+    this.retrieve = new Retrieve(this.objects)
   }
 
   add(obj) {
@@ -43,7 +46,7 @@ export default class World {
         if (item.isDead) {
           return this.remove(item)
         }
-        item.update(dt)
+        return item.update(dt, this)
       })
 
       this.objects.forEach(item => {
@@ -55,5 +58,9 @@ export default class World {
 
   pause() {
     cancelAnimationFrame(this.rid)
+  }
+
+  query(...args) {
+    return this.retrieve.query(...args)
   }
 }

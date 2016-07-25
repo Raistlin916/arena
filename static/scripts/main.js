@@ -23,6 +23,10 @@ world.add(ground)
 world.add(player)
 
 
-world.add(new Box({
-  coord: { x: 20, y: 20 }
-}))
+for (let i = 0; i < 10; i ++) {
+  world.add(new Box({
+    coord: { x: 150 + i * 11, y: 50 },
+    width: 10,
+    height: 10
+  }))
+}

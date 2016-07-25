@@ -8,4 +8,7 @@ export default class Obj {
   render() {
 
   }
+  die() {
+    this.isDead = true
+  }
 }
