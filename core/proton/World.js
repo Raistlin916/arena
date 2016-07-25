@@ -1,5 +1,5 @@
 import Retrieve from './quarks/Retrieve'
-import Timer from './quarks/Timer'
+import Timer from './Timer'
 
 export default class World {
 
@@ -8,13 +8,9 @@ export default class World {
     this.objects = []
     this.lastTime = 0
     this.totalTime = 0
-    this.info = {
-      width: config.width,
-      height: config.height
-    }
 
     this.retrieve = new Retrieve(this.objects)
-    this.timer = new Timer()
+    this.timer = config.timer
   }
 
   add(obj) {
@@ -42,18 +38,30 @@ export default class World {
       dt /= 1000
       this.totalTime += dt
 
-      this.objects.forEach(item => {
-        if (item.isDead) {
-          return this.remove(item)
-        }
-        return item.update(dt, this)
-      })
+      this.onIterate(this.objects, dt)
     }
     this.timer.requestFrame(r)
   }
 
+  onIterate(objs, dt) {
+    objs.forEach(item => {
+      if (item.isDead) {
+        return this.remove(item)
+      }
+      return item.update(dt, this)
+    })
+  }
+
   pause() {
     this.timer.cancelAnimationFrame()
+  }
+
+  destroy() {
+
+  }
+
+  export() {
+    return this.objects
   }
 
   query(...args) {

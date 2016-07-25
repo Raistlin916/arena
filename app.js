@@ -10,7 +10,7 @@ import path from 'path'
 import router from './routes'
 import * as middlewares from './middlewares'
 
-import GameServer from './server/main'
+import GameServer from './server'
 
 const app = new Koa()
 const jade = new Jade({

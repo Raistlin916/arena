@@ -1,4 +1,4 @@
-import Obj from '../proton/Obj'
+import Obj from '../../core/proton/Obj'
 
 export default class Ground extends Obj {
   constructor() {

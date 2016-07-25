@@ -1,6 +1,6 @@
-import PolarEntity from '../proton/PolarEntity'
+import PolarEntity from '../../core/proton/PolarEntity'
 import Input from '../proton/Input'
-import Bullet from './Bullet'
+import Bullet from '../../core/components/Bullet'
 
 export default class Player extends PolarEntity {
   constructor(config) {
