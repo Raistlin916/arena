@@ -33,6 +33,7 @@
     "koa-router": "^7.0.1",
     "koa-send": "^3.2.0",
     "koa-static-cache": "^3.1.7",
+    "socket.io": "^1.4.8",
     "webpack": "^1.13.1"
   },
   "devDependencies": {

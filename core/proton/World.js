@@ -1,20 +1,20 @@
-import '../utils/raf_polyfill'
 import Retrieve from './quarks/Retrieve'
+import Timer from './quarks/Timer'
 
 export default class World {
 
-  constructor(canvas) {
+  constructor(config) {
     this.rid = null
     this.objects = []
     this.lastTime = 0
     this.totalTime = 0
-    this.ctx = canvas.getContext('2d')
     this.info = {
-      width: canvas.width,
-      height: canvas.height
+      width: config.width,
+      height: config.height
     }
 
     this.retrieve = new Retrieve(this.objects)
+    this.timer = new Timer()
   }
 
   add(obj) {
@@ -34,7 +34,7 @@ export default class World {
 
   run() {
     const r = time => {
-      this.rid = requestAnimationFrame(r)
+      this.timer.requestFrame(r)
       let dt = time - this.lastTime
       if (dt < 10) return
       if (dt > 100) dt = 16
@@ -48,16 +48,12 @@ export default class World {
         }
         return item.update(dt, this)
       })
-
-      this.objects.forEach(item => {
-        item.render(this.ctx, this.info)
-      })
     }
-    this.rid = requestAnimationFrame(r)
+    this.timer.requestFrame(r)
   }
 
   pause() {
-    cancelAnimationFrame(this.rid)
+    this.timer.cancelAnimationFrame()
   }
 
   query(...args) {

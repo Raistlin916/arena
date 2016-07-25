@@ -10,7 +10,7 @@ const config = {
   entry: {
     main: [
       'webpack-dev-server/client?http://localhost:8081',
-      './static/scripts/main'
+      './client/main'
     ]
   },
   resolve: {

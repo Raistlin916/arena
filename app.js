@@ -1,4 +1,6 @@
 import Koa from 'koa'
+import Socket from 'socket.io'
+import http from 'http'
 import logger from 'koa-logger'
 import favicon from 'koa-favicon'
 import Jade from 'koa-jade'
@@ -8,11 +10,20 @@ import path from 'path'
 import router from './routes'
 import * as middlewares from './middlewares'
 
+import GameServer from './server/main'
+
 const app = new Koa()
 const jade = new Jade({
   viewPath: './views'
 })
 jade.use(app)
+
+const io = new Socket()
+const server = http.createServer(app.callback())
+
+io.attach(server)
+
+const gameServer = new GameServer(io)
 
 app.use(logger())
 app.use(favicon())
@@ -27,4 +38,4 @@ app.use(router.allowedMethods())
 app.use(async (ctx) =>
   send(ctx, ctx.path, { root: path.join(__dirname, '/static') })
 )
-.listen(3000, () => console.log('server listening on port 3000'))
+server.listen(3000, () => console.log('server listening on port 3000'))

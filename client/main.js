@@ -1,3 +1,4 @@
+import './utils/raf_polyfill'
 import World from './proton/World'
 import Ground from './components/Ground'
 import Player from './components/Player'
@@ -30,3 +31,7 @@ for (let i = 0; i < 10; i ++) {
     height: 10
   }))
 }
+
+
+const socket = io()
+socket.on('init', data => console.log(data))
