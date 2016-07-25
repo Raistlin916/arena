@@ -3,6 +3,6 @@ export default class Retrieve {
     this.list = list
   }
   query(type) {
-    return this.list.filter(item => item.constructor.name === type)
+    return this.list.filter(item => item.className === type)
   }
 }

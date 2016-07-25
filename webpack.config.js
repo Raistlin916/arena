@@ -10,14 +10,14 @@ const config = {
   entry: {
     main: [
       'webpack-dev-server/client?http://localhost:8081',
-      './static/scripts/main'
+      './client/main'
     ]
   },
   resolve: {
     extensions: ['', '.js']
   },
   output: {
-    path: path.join(__dirname, './static/build/'),
+    path: path.join(__dirname, './www/static/build/'),
     publicPath: '/build/',
     filename: '[name].bundle.js'
   },

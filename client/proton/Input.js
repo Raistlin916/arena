@@ -1,4 +1,4 @@
-import EventEmitter from '../lib/EventEmitter'
+import EventEmitter from '../../core/lib/EventEmitter'
 
 const keyMap = {
   32: 'space',
