@@ -10,11 +10,11 @@ import path from 'path'
 import router from './routes'
 import * as middlewares from './middlewares'
 
-import GameServer from './server'
+import GameServer from '../server'
 
 const app = new Koa()
 const jade = new Jade({
-  viewPath: './views'
+  viewPath: path.join(__dirname, './views')
 })
 jade.use(app)
 

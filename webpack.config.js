@@ -17,7 +17,7 @@ const config = {
     extensions: ['', '.js']
   },
   output: {
-    path: path.join(__dirname, './static/build/'),
+    path: path.join(__dirname, './www/static/build/'),
     publicPath: '/build/',
     filename: '[name].bundle.js'
   },

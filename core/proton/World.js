@@ -4,10 +4,7 @@ import Timer from './Timer'
 export default class World {
 
   constructor(config) {
-    this.rid = null
     this.objects = []
-    this.lastTime = 0
-    this.totalTime = 0
 
     this.retrieve = new Retrieve(this.objects)
     this.timer = config.timer
@@ -29,18 +26,11 @@ export default class World {
   }
 
   run() {
-    const r = time => {
-      this.timer.requestFrame(r)
-      let dt = time - this.lastTime
-      if (dt < 10) return
-      if (dt > 100) dt = 16
-      this.lastTime = time
-      dt /= 1000
-      this.totalTime += dt
-
-      this.onIterate(this.objects, dt)
+    const round = (dt, time) => {
+      this.timer.requestFrame(round)
+      this.onIterate(this.objects, dt, time)
     }
-    this.timer.requestFrame(r)
+    this.timer.requestFrame(round)
   }
 
   onIterate(objs, dt) {
