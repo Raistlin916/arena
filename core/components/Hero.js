@@ -2,14 +2,15 @@ import PolarEntity from '../proton/PolarEntity'
 import Bullet from '../components/Bullet'
 
 export default class Hero extends PolarEntity {
-  constructor(config, world, input) {
-    config = Object.assign({
+  constructor(bundle, world, input) {
+    bundle = Object.assign({
       width: 10,
       height: 10
-    }, config)
-    super(config)
+    }, bundle)
+    super(bundle)
 
-    this.color = config.color
+    this.color = bundle.color
+    this.name = bundle.name || '匿名'
     this.world = world
 
     if (input) {
@@ -53,11 +54,20 @@ export default class Hero extends PolarEntity {
     ctx.strokeStyle = 'red'
     ctx.stroke()
     ctx.restore()
+
+    ctx.save()
+    ctx.translate(this.centerCoord.x, this.coord.y)
+    ctx.fillStyle = 'white'
+    ctx.textAlign = 'center'
+    ctx.fontSize = 12
+    ctx.fillText(this.name, 0, -5)
+    ctx.restore()
   }
 
   export() {
     return Object.assign(super.export(), {
-      color: this.color
+      color: this.color,
+      name: this.name
     })
   }
 }

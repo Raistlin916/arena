@@ -2,29 +2,29 @@ import Obj from './Obj'
 import Vector from '../lib/Vector'
 
 export default class Entity extends Obj {
-  constructor(config = {}) {
-    super(config)
+  constructor(bundle = {}) {
+    super(bundle)
 
-    if (!config.coord) {
+    if (!bundle.coord) {
       throw new Error('Entity need coord')
     }
 
-    config = Object.assign({
+    bundle = Object.assign({
       velocity: { x: 0, y: 0 },
       acc: { x: 0, y: 0 },
       width: 1,
       height: 1
-    }, config)
+    }, bundle)
 
-    this.coord = new Vector(config.coord)
-    this.velocity = new Vector(config.velocity)
-    this.acc = new Vector(config.acc)
-    this.width = config.width
-    this.height = config.height
+    this.coord = new Vector(bundle.coord)
+    this.velocity = new Vector(bundle.velocity)
+    this.acc = new Vector(bundle.acc)
+    this.width = bundle.width
+    this.height = bundle.height
 
     this.centerCoord = new Vector({
-      x: config.coord.x + this.width / 2,
-      y: config.coord.y + this.height / 2
+      x: bundle.coord.x + this.width / 2,
+      y: bundle.coord.y + this.height / 2
     })
   }
 

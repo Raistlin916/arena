@@ -8,8 +8,8 @@ const classMap = { Box, Hero, Bullet }
 
 export default class World extends WorldCore {
 
-  constructor(config, canvas, socket) {
-    super(config)
+  constructor(bundle, canvas, socket) {
+    super(bundle)
     this.ctx = canvas.getContext('2d')
     this.info = {
       width: canvas.width,

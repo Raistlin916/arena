@@ -2,11 +2,11 @@ import Retrieve from './quarks/Retrieve'
 
 export default class World {
 
-  constructor(config) {
+  constructor(bundle) {
     this.objects = []
 
     this.retrieve = new Retrieve(this.objects)
-    this.timer = config.timer
+    this.timer = bundle.timer
   }
 
   add(obj) {

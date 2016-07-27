@@ -1,5 +1,7 @@
 import Rules from '../core/rules'
 
+let HumanID = 0
+
 export default class Server {
   constructor(io) {
     this.io = io
@@ -9,13 +11,22 @@ export default class Server {
   }
 
   onInit(socket) {
+    const id = HumanID
+    HumanID += 1
+    const human = this.rules.addHuman(id)
+
+
     socket.emit('init', {
       enities: this.rules.getEnities()
     })
 
     socket.on('action', data => {
-      this.rules.receiveAction(data)
+      human.hear(data)
       socket.emit('action', data)
+    })
+
+    socket.on('disconnect', () => {
+      human.destroy()
     })
   }
 }
