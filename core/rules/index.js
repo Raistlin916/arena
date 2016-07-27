@@ -1,6 +1,7 @@
 import World from '../proton/World'
 import Timer from '../proton/Timer'
 import Box from '../components/Box'
+import Hero from '../components/Hero'
 
 export default class Rules {
   constructor() {
@@ -16,6 +17,18 @@ export default class Rules {
         height: 10
       }))
     }
+
+
+    this.input = new Input()
+    this.hero = new Hero({
+      coord: { x: 100, y: 50 },
+      color: 'yellow',
+    }, this.world, this.input)
+    this.world.add(this.hero)
+  }
+
+  receiveAction(data) {
+    this.input.emit(data.eventName, data)
   }
 
   getEnities() {

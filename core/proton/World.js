@@ -1,5 +1,4 @@
 import Retrieve from './quarks/Retrieve'
-import Timer from './Timer'
 
 export default class World {
 
@@ -51,7 +50,7 @@ export default class World {
   }
 
   export() {
-    return this.objects
+    return this.objects.map(item => (item.export ? item.export() : item))
   }
 
   query(...args) {

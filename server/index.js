@@ -12,6 +12,11 @@ export default class Server {
     socket.emit('init', {
       enities: this.rules.getEnities()
     })
+
+    socket.on('action', data => {
+      this.rules.receiveAction(data)
+      socket.emit('action', data)
+    })
   }
 }
 

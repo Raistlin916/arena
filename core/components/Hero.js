@@ -1,28 +1,26 @@
-import PolarEntity from '../../core/proton/PolarEntity'
-import Input from '../proton/Input'
-import Bullet from '../../core/components/Bullet'
+import PolarEntity from '../proton/PolarEntity'
+import Bullet from '../components/Bullet'
 
-export default class Player extends PolarEntity {
-  constructor(config) {
+export default class Hero extends PolarEntity {
+  constructor(config, world, input) {
     super(Object.assign({
       width: 10,
       height: 10
     }, config))
 
     this.color = config.color
-    this.world = config.world
-
-    this.input = new Input()
+    this.world = world
     this.direction = 0
 
-
-    this.input.on('turnWheel', e => {
-      this.handleTurnWheel(e)
-      this.emmitBullets(e)
-    })
+    if (input) {
+      input.on('turnWheel', e => {
+        this.onTurnWheel(e)
+        this.onEmitBullets(e)
+      })
+    }
   }
 
-  handleTurnWheel(e) {
+  onTurnWheel(e) {
     if (e.keyName === 'left') {
       this.speedOfRotate = e.type === 'end' ? 0 : -180
     } else if (e.keyName === 'right') {
@@ -34,17 +32,13 @@ export default class Player extends PolarEntity {
     }
   }
 
-  emmitBullets(e) {
+  onEmitBullets(e) {
     if (e.keyName === 'space' && e.type === 'end') {
       this.world.add(new Bullet({
         coord: this.centerCoord,
         velocity: this.direction.clone().scale(500, 500)
       }))
     }
-  }
-
-  update(dt) {
-    super.update(dt)
   }
 
   render(ctx) {
