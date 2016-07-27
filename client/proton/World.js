@@ -1,9 +1,10 @@
 import WorldCore from '../../core/proton/World'
 import Hero from '../components/Hero'
 import Box from '../../core/components/Box'
+import Bullet from '../../core/components/Bullet'
 import Input from './Input'
 
-const classMap = { Box, Hero }
+const classMap = { Box, Hero, Bullet }
 
 export default class World extends WorldCore {
 

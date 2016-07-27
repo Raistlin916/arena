@@ -36,7 +36,7 @@ export default class Hero extends PolarEntity {
     if (e.keyName === 'space' && e.type === 'end') {
       this.world.add(new Bullet({
         coord: this.centerCoord,
-        velocity: this.direction.clone().scale(500, 500)
+        velocity: this.direction.clone().scale(200, 200)
       }))
     }
   }
