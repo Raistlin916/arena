@@ -1,6 +1,5 @@
 import World from './proton/World'
 import Timer from './proton/Timer'
-import Ground from './components/Ground'
 
 const canvas = document.querySelector('canvas')
 canvas.width = 500
@@ -13,5 +12,3 @@ const socket = io()
 const world = new World({ timer: new Timer() }, canvas, socket)
 world.run()
 
-const ground = new Ground()
-world.add(ground)

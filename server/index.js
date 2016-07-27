@@ -8,15 +8,16 @@ export default class Server {
 
     this.rules = new Rules()
     io.on('connection', this.onInit.bind(this))
+    this.syncLoop()
   }
 
   onInit(socket) {
-    const id = HumanID
+    const hid = HumanID
     HumanID += 1
-    const human = this.rules.addHuman(id)
-
+    const human = this.rules.addHuman(hid)
 
     socket.emit('init', {
+      gid: human.entity.gid,
       enities: this.rules.getEnities()
     })
 
@@ -28,6 +29,14 @@ export default class Server {
     socket.on('disconnect', () => {
       human.destroy()
     })
+  }
+
+  syncLoop() {
+    setInterval(() =>
+      this.io.sockets.emit('sync', {
+        enities: this.rules.getEnities()
+      })
+    , 16)
   }
 }
 

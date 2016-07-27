@@ -1,7 +1,10 @@
+let id = 0
+
 export default class Obj {
-  constructor() {
+  constructor(bundle = {}) {
     this.isDead = false
     this.className = this.constructor.name
+    this.gid = bundle.gid ? bundle.gid : id++
   }
   update() {
 
@@ -14,7 +17,11 @@ export default class Obj {
   }
   export() {
     return {
-      className: this.className
+      className: this.className,
+      gid: this.gid
     }
+  }
+  merge(bundle) {
+    Object.assign(this, bundle)
   }
 }

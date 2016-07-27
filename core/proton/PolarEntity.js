@@ -45,6 +45,13 @@ export default class PolarEntity extends Obj {
     })
   }
 
+  merge(targetBundle) {
+    this.coord = new Vector(targetBundle.coord)
+    this.speed = targetBundle.speed
+    this.angle = targetBundle.angle
+    this.speedOfRotate = targetBundle.speedOfRotate
+  }
+
   export() {
     return Object.assign(super.export(), {
       width: this.width,

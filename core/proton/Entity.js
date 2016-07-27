@@ -38,6 +38,12 @@ export default class Entity extends Obj {
     })
   }
 
+  merge(targetBundle) {
+    this.coord = new Vector(targetBundle.coord)
+    this.velocity = new Vector(targetBundle.velocity)
+    this.acc = new Vector(targetBundle.acc)
+  }
+
   export() {
     return Object.assign(super.export(), {
       coord: this.coord,
