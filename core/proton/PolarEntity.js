@@ -6,7 +6,7 @@ export default class PolarEntity extends Obj {
     super(config)
 
     if (!config.coord) {
-      throw new Error('Entity need coord')
+      throw new Error('PolarEntity need coord')
     }
 
     config = Object.assign({
@@ -24,6 +24,7 @@ export default class PolarEntity extends Obj {
     this.speed = config.speed
     this.angle = config.angle
     this.speedOfRotate = config.speedOfRotate
+
     this.centerCoord = new Vector({
       x: config.coord.x + this.width / 2,
       y: config.coord.y + this.height / 2
@@ -44,7 +45,14 @@ export default class PolarEntity extends Obj {
     })
   }
 
-  render() {
-
+  export() {
+    return Object.assign(super.export(), {
+      width: this.width,
+      height: this.height,
+      coord: this.coord,
+      speed: this.speed,
+      angle: this.angle,
+      speedOfRotate: this.speedOfRotate
+    })
   }
 }

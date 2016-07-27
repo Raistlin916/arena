@@ -12,4 +12,9 @@ export default class Obj {
   die() {
     this.isDead = true
   }
+  export() {
+    return {
+      className: this.className
+    }
+  }
 }

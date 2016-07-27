@@ -3,14 +3,14 @@ import Bullet from '../components/Bullet'
 
 export default class Hero extends PolarEntity {
   constructor(config, world, input) {
-    super(Object.assign({
+    config = Object.assign({
       width: 10,
       height: 10
-    }, config))
+    }, config)
+    super(config)
 
     this.color = config.color
     this.world = world
-    this.direction = 0
 
     if (input) {
       input.on('turnWheel', e => {
@@ -53,5 +53,11 @@ export default class Hero extends PolarEntity {
     ctx.strokeStyle = 'red'
     ctx.stroke()
     ctx.restore()
+  }
+
+  export() {
+    return Object.assign(super.export(), {
+      color: this.color
+    })
   }
 }

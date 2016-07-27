@@ -21,6 +21,7 @@ export default class Entity extends Obj {
     this.acc = new Vector(config.acc)
     this.width = config.width
     this.height = config.height
+
     this.centerCoord = new Vector({
       x: config.coord.x + this.width / 2,
       y: config.coord.y + this.height / 2
@@ -37,7 +38,13 @@ export default class Entity extends Obj {
     })
   }
 
-  render() {
-
+  export() {
+    return Object.assign(super.export(), {
+      coord: this.coord,
+      velocity: this.velocity,
+      acc: this.acc,
+      width: this.width,
+      height: this.height
+    })
   }
 }
