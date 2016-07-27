@@ -2,31 +2,32 @@ import Obj from './Obj'
 import Vector from '../lib/Vector'
 
 export default class PolarEntity extends Obj {
-  constructor(config = {}) {
-    super(config)
+  constructor(bundle = {}) {
+    super(bundle)
 
-    if (!config.coord) {
-      throw new Error('Entity need coord')
+    if (!bundle.coord) {
+      throw new Error('PolarEntity need coord')
     }
 
-    config = Object.assign({
+    bundle = Object.assign({
       width: 1,
       height: 1,
       speed: 0,
       speedOfRotate: 0,
       angle: 90,
       rotate: 0
-    }, config)
+    }, bundle)
 
-    this.width = config.width
-    this.height = config.height
-    this.coord = new Vector(config.coord)
-    this.speed = config.speed
-    this.angle = config.angle
-    this.speedOfRotate = config.speedOfRotate
+    this.width = bundle.width
+    this.height = bundle.height
+    this.coord = new Vector(bundle.coord)
+    this.speed = bundle.speed
+    this.angle = bundle.angle
+    this.speedOfRotate = bundle.speedOfRotate
+
     this.centerCoord = new Vector({
-      x: config.coord.x + this.width / 2,
-      y: config.coord.y + this.height / 2
+      x: bundle.coord.x + this.width / 2,
+      y: bundle.coord.y + this.height / 2
     })
     this.radiansOfAngle = this.angle / 180 * Math.PI
   }
@@ -44,7 +45,21 @@ export default class PolarEntity extends Obj {
     })
   }
 
-  render() {
+  merge(targetBundle) {
+    this.coord = new Vector(targetBundle.coord)
+    this.speed = targetBundle.speed
+    this.angle = targetBundle.angle
+    this.speedOfRotate = targetBundle.speedOfRotate
+  }
 
+  export() {
+    return Object.assign(super.export(), {
+      width: this.width,
+      height: this.height,
+      coord: this.coord,
+      speed: this.speed,
+      angle: this.angle,
+      speedOfRotate: this.speedOfRotate
+    })
   }
 }

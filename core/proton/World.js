@@ -1,13 +1,12 @@
 import Retrieve from './quarks/Retrieve'
-import Timer from './Timer'
 
 export default class World {
 
-  constructor(config) {
+  constructor(bundle) {
     this.objects = []
 
     this.retrieve = new Retrieve(this.objects)
-    this.timer = config.timer
+    this.timer = bundle.timer
   }
 
   add(obj) {
@@ -51,7 +50,7 @@ export default class World {
   }
 
   export() {
-    return this.objects
+    return this.objects.map(item => (item.export ? item.export() : item))
   }
 
   query(...args) {
