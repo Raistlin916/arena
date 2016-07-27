@@ -21,7 +21,4 @@ export default class Obj {
       gid: this.gid
     }
   }
-  merge(bundle) {
-    Object.assign(this, bundle)
-  }
 }

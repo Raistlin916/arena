@@ -32,7 +32,9 @@ export default class World extends WorldCore {
       this.objects.forEach(item => {
         const exist = data.enities.some(entity => {
           if (entity.gid === item.gid) {
-            item.merge(entity)
+            if (item.merge) {
+              item.merge(entity)
+            }
             data.enities.splice(data.enities.indexOf(entity), 1)
             return true
           }

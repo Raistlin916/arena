@@ -39,7 +39,10 @@ export default class Entity extends Obj {
   }
 
   merge(targetBundle) {
-    this.coord = new Vector(targetBundle.coord)
+    const targetCoord = new Vector(targetBundle.coord)
+    if (targetCoord.clone().sub(this.coord).len() >= 50) {
+      this.coord = targetCoord
+    }
     this.velocity = new Vector(targetBundle.velocity)
     this.acc = new Vector(targetBundle.acc)
   }
