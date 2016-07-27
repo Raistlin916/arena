@@ -46,7 +46,10 @@ export default class PolarEntity extends Obj {
   }
 
   merge(targetBundle) {
-    this.coord = new Vector(targetBundle.coord)
+    const targetCoord = new Vector(targetBundle.coord)
+    if (targetCoord.clone().sub(this.coord).len() >= 5) {
+      this.coord = targetCoord
+    }
     this.speed = targetBundle.speed
     this.angle = targetBundle.angle
     this.speedOfRotate = targetBundle.speedOfRotate

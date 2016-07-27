@@ -36,7 +36,7 @@ export default class Server {
       this.io.sockets.emit('sync', {
         enities: this.rules.getEnities()
       })
-    , 30)
+    , 40)
   }
 }
 
