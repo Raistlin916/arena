@@ -1,4 +1,5 @@
 import Rules from '../core/rules'
+import HeartBeatServer from './proton/HeartBeatServer'
 
 let HumanID = 0
 
@@ -18,25 +19,29 @@ export default class Server {
 
     socket.emit('init', {
       gid: human.entity.gid,
-      enities: this.rules.getEnities()
+      entities: this.rules.getEntities()
     })
 
     socket.on('action', data => {
       human.hear(data)
-      socket.emit('action', data)
     })
 
     socket.on('disconnect', () => {
       human.destroy()
     })
+
+    const heartBeatServer = new HeartBeatServer(socket)
+    heartBeatServer.bindPump(() => ({
+      coord: human.entity.coord
+    }))
   }
 
   syncLoop() {
     setInterval(() =>
       this.io.sockets.emit('sync', {
-        enities: this.rules.getEnities()
+        entities: this.rules.getEntities()
       })
-    , 40)
+    , 100)
   }
 }
 

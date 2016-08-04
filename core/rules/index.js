@@ -17,7 +17,7 @@ export default class Rules {
     const ground = new Ground()
     this.world.add(ground)
 
-    for (let i = 0; i < 10; i ++) {
+    for (let i = 0; i < 10; i++) {
       this.world.add(new Box({
         coord: { x: 150 + i * 11, y: 50 },
         width: 10,
@@ -42,7 +42,7 @@ export default class Rules {
     })
   }
 
-  getEnities() {
+  getEntities() {
     return this.world.export()
   }
 }

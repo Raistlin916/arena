@@ -14,10 +14,6 @@ export default class Input extends EventEmitter {
     this.bindEvent()
     this.activeMap = {}
     this.socket = socket
-
-    socket.on('action', data => {
-      this.emit(data.eventName, data)
-    })
   }
 
   bindEvent() {
@@ -45,11 +41,13 @@ export default class Input extends EventEmitter {
         delete this.activeMap[keyName]
       }
 
-      this.socket.emit('action', {
+      const actionData = {
         eventName: 'turnWheel',
         keyName,
         type
-      })
+      }
+      this.emit(actionData.eventName, actionData)
+      this.socket.emit('action', actionData)
     }
   }
 }

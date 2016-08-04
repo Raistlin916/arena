@@ -50,7 +50,7 @@ export default class Hero extends PolarEntity {
     ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height)
     ctx.beginPath()
     ctx.moveTo(0, 0)
-    ctx.lineTo(0, -this.height / 2 - 3)
+    ctx.lineTo(0, (-this.height / 2) - 3)
     ctx.strokeStyle = 'red'
     ctx.stroke()
     ctx.restore()

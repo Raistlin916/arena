@@ -26,8 +26,8 @@ export default class PolarEntity extends Obj {
     this.speedOfRotate = bundle.speedOfRotate
 
     this.centerCoord = new Vector({
-      x: bundle.coord.x + this.width / 2,
-      y: bundle.coord.y + this.height / 2
+      x: bundle.coord.x + (this.width / 2),
+      y: bundle.coord.y + (this.height / 2)
     })
     this.radiansOfAngle = this.angle / 180 * Math.PI
   }
@@ -40,16 +40,12 @@ export default class PolarEntity extends Obj {
     this.coord.add(this.direction.clone().scale(this.speed * dt, this.speed * dt))
 
     this.centerCoord = new Vector({
-      x: this.coord.x + this.width / 2,
-      y: this.coord.y + this.height / 2
+      x: this.coord.x + (this.width / 2),
+      y: this.coord.y + (this.height / 2)
     })
   }
 
   merge(targetBundle) {
-    const targetCoord = new Vector(targetBundle.coord)
-    if (targetCoord.clone().sub(this.coord).len() >= 5) {
-      this.coord = targetCoord
-    }
     this.speed = targetBundle.speed
     this.angle = targetBundle.angle
     this.speedOfRotate = targetBundle.speedOfRotate
