@@ -1,11 +1,11 @@
-import World from '../proton/World'
-import Timer from '../proton/Timer'
-import Box from '../components/Box'
-import Hero from '../components/Hero'
-import Ground from '../components/Ground'
+import World from '../../core/proton/World'
+import Timer from '../../core/proton/Timer'
+import Box from '../../core/components/Box'
+import Hero from '../../core/components/Hero'
+import Ground from '../../core/components/Ground'
 
 import Human from './Human.js'
-import EventEmitter from '../lib/EventEmitter'
+import EventEmitter from '../../core/lib/EventEmitter'
 
 export default class Rules {
   constructor() {

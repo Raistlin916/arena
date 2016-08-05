@@ -1,6 +1,6 @@
 // Reconciliation --> http://www.gabrielgambetta.com/fpm2.html
 
-const MAX_PENDING_BEAT = 10
+const MAX_PENDING_BEAT = 5
 
 
 export default class HeartBeatClient {
@@ -36,8 +36,9 @@ export default class HeartBeatClient {
     return this
   }
 
-  bindLagPending(onLagPending) {
+  bindLagPending(onLagPending, onLagReconnection) {
     this.onLagPending = onLagPending
+    this.onLagReconnection = onLagReconnection
     return this
   }
 
@@ -70,7 +71,7 @@ export default class HeartBeatClient {
   }
 
   onReconciliation(serverBeat) {
-    console.log(serverBeat.bundle.coord.x, this.clientBeats.map(item => item.bundle.coord.x))
+    console.log(serverBeat.bid, this.clientBeats.map(item => item.bid))
     let clientBeatIndex = -1
     this.clientBeats.some((item, index) => {
       if (serverBeat.bid === item.bid) {
@@ -86,12 +87,15 @@ export default class HeartBeatClient {
       throw new Error('unknown serverBeat')
     }
 
-    this.clientBeats.splice(0, clientBeatIndex)
+    this.clientBeats.splice(0, clientBeatIndex + 1)
 
     if (!this.onJudge(serverBeat, clientBeat)) {
       this.flush()
     }
 
-    this.isLagPending = false
+    if (this.isLagPending) {
+      this.isLagPending = false
+      this.onLagReconnection()
+    }
   }
 }

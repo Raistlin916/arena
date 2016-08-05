@@ -1,4 +1,4 @@
-import Rules from '../core/rules'
+import Rules from './rules'
 import HeartBeatServer from './proton/HeartBeatServer'
 
 let HumanID = 0

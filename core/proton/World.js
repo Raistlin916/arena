@@ -25,6 +25,7 @@ export default class World {
   }
 
   run() {
+    this.timer.cancelFrame()
     const round = (dt, time) => {
       this.timer.requestFrame(round)
       this.onIterate(this.objects, dt, time)
@@ -42,7 +43,7 @@ export default class World {
   }
 
   pause() {
-    this.timer.cancelAnimationFrame()
+    this.timer.cancelFrame()
   }
 
   destroy() {

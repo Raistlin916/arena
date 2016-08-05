@@ -88,6 +88,10 @@ export default class World extends WorldCore {
       )
       .bindLagPending(() => {
         console.log('lag pending')
+        this.pause()
+      }, () => {
+        console.log('reconnet')
+        this.run()
       })
   }
 }
