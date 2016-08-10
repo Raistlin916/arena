@@ -1,5 +1,4 @@
 import Rules from './rules'
-import HeartBeatServer from './proton/HeartBeatServer'
 
 let HumanID = 0
 
@@ -29,11 +28,6 @@ export default class Server {
     socket.on('disconnect', () => {
       human.destroy()
     })
-
-    const heartBeatServer = new HeartBeatServer(socket)
-    heartBeatServer.bindPump(() => ({
-      coord: human.entity.coord
-    }))
   }
 
   syncLoop() {

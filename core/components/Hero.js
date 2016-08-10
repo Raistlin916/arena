@@ -12,13 +12,7 @@ export default class Hero extends PolarEntity {
     this.color = bundle.color
     this.name = bundle.name || '匿名'
     this.world = world
-
-    if (input) {
-      input.on('turnWheel', e => {
-        this.onTurnWheel(e)
-        this.onEmitBullets(e)
-      })
-    }
+    this.input = input
   }
 
   onTurnWheel(e) {
@@ -62,6 +56,28 @@ export default class Hero extends PolarEntity {
     ctx.fontSize = 12
     ctx.fillText(this.name, 0, -5)
     ctx.restore()
+  }
+
+  update(...args) {
+    const { input } = this
+    if (input) {
+      const { activeMap } = input
+      this.speedOfRotate = 0
+      this.speed = 0
+      if (activeMap.left) {
+        this.speedOfRotate = -180
+      }
+      if (activeMap.right) {
+        this.speedOfRotate = 180
+      }
+      if (activeMap.top) {
+        this.speed = 100
+      }
+      if (activeMap.bottom) {
+        this.speed = -100
+      }
+    }
+    super.update(...args)
   }
 
   export() {

@@ -8,9 +8,8 @@ const keyMap = {
   40: 'bottom'
 }
 
-export default class Input extends EventEmitter {
+export default class Input {
   constructor(socket) {
-    super()
     this.bindEvent()
     this.activeMap = {}
     this.socket = socket
@@ -40,14 +39,7 @@ export default class Input extends EventEmitter {
         }
         delete this.activeMap[keyName]
       }
-
-      const actionData = {
-        eventName: 'turnWheel',
-        keyName,
-        type
-      }
-      this.emit(actionData.eventName, actionData)
-      this.socket.emit('action', actionData)
+      //this.socket.emit('action', actionData)
     }
   }
 }

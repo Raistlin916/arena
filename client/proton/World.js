@@ -4,9 +4,6 @@ import Box from '../../core/components/Box'
 import Bullet from '../../core/components/Bullet'
 import Ground from '../../core/components/Ground'
 import Input from './Input'
-import Vector from '../../core/lib/Vector'
-
-import HeartBeatClient from './HeartBeatClient'
 
 const classMap = { Box, Hero, Bullet, Ground }
 
@@ -22,7 +19,6 @@ export default class World extends WorldCore {
     this.socket = socket
 
     this.input = new Input(this.socket)
-    this.initHeartBeat()
 
     socket.on('init', data => {
       this.userGid = data.gid
@@ -66,32 +62,5 @@ export default class World extends WorldCore {
   onIterate(objs, dt) {
     super.onIterate(objs, dt)
     objs.forEach(item => item.render(this.ctx, this.info))
-  }
-
-  initHeartBeat() {
-    this.heartBeatClient = new HeartBeatClient(this.socket)
-    this.heartBeatClient
-      .bindJudge((serverBeat, clientBeat) => {
-        const serverCoord = new Vector(serverBeat.bundle.coord)
-        const clientCoord = new Vector(clientBeat.bundle.coord)
-        if (clientCoord.sub(serverCoord).len() <= 5) {
-          return true
-        }
-        console.log('conflict')
-        this.entityOfUser.coord = serverCoord
-        return false
-      })
-      .bindPump(() =>
-        ({
-          coord: this.entityOfUser.coord
-        })
-      )
-      .bindLagPending(() => {
-        console.log('lag pending')
-        this.pause()
-      }, () => {
-        console.log('reconnet')
-        this.run()
-      })
   }
 }
