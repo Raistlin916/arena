@@ -1,5 +1,3 @@
-import EventEmitter from '../../core/lib/EventEmitter'
-
 const keyMap = {
   32: 'space',
   37: 'left',
@@ -39,7 +37,7 @@ export default class Input {
         }
         delete this.activeMap[keyName]
       }
-      //this.socket.emit('action', actionData)
+      // this.socket.emit('action', actionData)
     }
   }
 }

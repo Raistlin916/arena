@@ -1,5 +1,4 @@
 import World from '../../core/proton/World'
-import Timer from '../../core/proton/Timer'
 import Box from '../../core/components/Box'
 import Hero from '../../core/components/Hero'
 import Ground from '../../core/components/Ground'
@@ -9,9 +8,7 @@ import EventEmitter from '../../core/lib/EventEmitter'
 
 export default class Rules {
   constructor() {
-    this.world = new World({
-      timer: new Timer()
-    })
+    this.world = new World()
     this.world.run()
 
     const ground = new Ground()

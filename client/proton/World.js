@@ -4,6 +4,7 @@ import Box from '../../core/components/Box'
 import Bullet from '../../core/components/Bullet'
 import Ground from '../../core/components/Ground'
 import Input from './Input'
+import RenderTimer from './RenderTimer'
 
 const classMap = { Box, Hero, Bullet, Ground }
 
@@ -20,6 +21,11 @@ export default class World extends WorldCore {
 
     this.input = new Input(this.socket)
 
+    this.initRenderTimer()
+    this.initSocket(socket)
+  }
+
+  initSocket(socket) {
     socket.on('init', data => {
       this.userGid = data.gid
       data.entities.forEach(item => {
@@ -51,16 +57,20 @@ export default class World extends WorldCore {
     })
   }
 
+  initRenderTimer() {
+    this.renderTimer = new RenderTimer()
+    const round = () => {
+      this.renderTimer.requestFrame(round)
+      this.objects.forEach(item => item.render(this.ctx, this.info))
+    }
+    this.renderTimer.requestFrame(round)
+  }
+
   entityFactory(className, bundle) {
     if (this.userGid === bundle.gid) {
       this.entityOfUser = new classMap[className](bundle, this, this.input)
       return this.entityOfUser
     }
     return new classMap[className](bundle, this)
-  }
-
-  onIterate(objs, dt) {
-    super.onIterate(objs, dt)
-    objs.forEach(item => item.render(this.ctx, this.info))
   }
 }

@@ -20,17 +20,18 @@ if (!window.cancelAnimationFrame) {
   window.cancelAnimationFrame = id => clearTimeout(id)
 }
 
-export default class Timer {
+export default class RenderTimer {
   constructor() {
     this.lastTime = 0
     this.totalTime = 0
   }
   requestFrame(cb) {
     this.tid = requestAnimationFrame(time => {
-      let dt = time - this.lastTime
-      if (dt > 100) dt = 16
+      const dt = time - this.lastTime
+      if (dt < 16) {
+        return
+      }
       this.lastTime = time
-      dt /= 1000
       this.totalTime += dt
       cb(dt)
     })
