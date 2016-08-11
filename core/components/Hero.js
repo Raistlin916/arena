@@ -2,7 +2,7 @@ import PolarEntity from '../proton/PolarEntity'
 import Bullet from '../components/Bullet'
 
 export default class Hero extends PolarEntity {
-  constructor(bundle, world, input) {
+  constructor(bundle, world) {
     bundle = Object.assign({
       width: 10,
       height: 10
@@ -12,7 +12,6 @@ export default class Hero extends PolarEntity {
     this.color = bundle.color
     this.name = bundle.name || '匿名'
     this.world = world
-    this.input = input
   }
 
   onTurnWheel(e) {
