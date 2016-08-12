@@ -6,39 +6,37 @@ export default class Hero extends HeroCore {
     super(bundle, world)
     this.input = input
     this.pendingInputs = []
-    this.inputNumber = 0
+    this.inputSeq = 0
+
+    if (input) {
+      this.world.socket.on('reconciliation', data => this.onReconciliation(data.seq, data.bundle))
+    }
+  }
+
+  onReconciliation(seq, bundle) {
+    this.pendingInputs = this.pendingInputs.filter(item => item.seq > seq)
+    this.merge(bundle)
+    this.pendingInputs.forEach(item => this.applyInput(item.dt, item.activeMap))
   }
 
   packageInput(dt) {
-    // if (this.pendingInputs.length >= 50) {
-    //   return
-    // }
+    if (this.pendingInputs.length >= 100) {
+      return
+    }
 
     const activeMap = JSON.parse(JSON.stringify(this.input.activeMap))
-    this.pendingInputs.push({
+    const currentPackage = {
       dt,
       activeMap,
-      seq: this.inputNumber ++
-    })
-    this.applyInput(dt, activeMap)
-  }
+      seq: this.inputSeq ++
+    }
+    this.pendingInputs.push(currentPackage)
 
-  applyInput(dt, activeMap) {
-    this.speedOfRotate = 0
-    this.speed = 0
-    if (activeMap.left) {
-      this.speedOfRotate = -180
-    }
-    if (activeMap.right) {
-      this.speedOfRotate = 180
-    }
-    if (activeMap.top) {
-      this.speed = 100
-    }
-    if (activeMap.bottom) {
-      this.speed = -100
-    }
-    super.update(dt)
+    this.applyInput(currentPackage.dt, currentPackage.activeMap)
+
+    setTimeout(() => {
+      this.world.socket.emit('input_pack', currentPackage)
+    }, 500)
   }
 
   update(dt) {

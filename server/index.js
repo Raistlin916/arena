@@ -16,14 +16,16 @@ export default class Server {
     HumanID += 1
     const human = this.rules.addHuman(hid)
 
+    human.bindRoar((seq, bundle) => {
+      socket.emit('reconciliation', { seq, bundle })
+    })
+
     socket.emit('init', {
       gid: human.entity.gid,
       entities: this.rules.getEntities()
     })
 
-    socket.on('action', data => {
-      human.hear(data)
-    })
+    socket.on('input_pack', pack => human.hear(pack))
 
     socket.on('disconnect', () => {
       human.destroy()

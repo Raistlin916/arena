@@ -37,7 +37,6 @@ export default class Input {
         }
         delete this.activeMap[keyName]
       }
-      // this.socket.emit('action', actionData)
     }
   }
 }

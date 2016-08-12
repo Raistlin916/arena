@@ -14,16 +14,22 @@ export default class Hero extends PolarEntity {
     this.world = world
   }
 
-  onTurnWheel(e) {
-    if (e.keyName === 'left') {
-      this.speedOfRotate = e.type === 'end' ? 0 : -180
-    } else if (e.keyName === 'right') {
-      this.speedOfRotate = e.type === 'end' ? 0 : 180
-    } else if (e.keyName === 'top') {
-      this.speed = e.type === 'end' ? 0 : 100
-    } else if (e.keyName === 'bottom') {
-      this.speed = e.type === 'end' ? 0 : -100
+  applyInput(dt, activeMap) {
+    this.speedOfRotate = 0
+    this.speed = 0
+    if (activeMap.left) {
+      this.speedOfRotate = -180
     }
+    if (activeMap.right) {
+      this.speedOfRotate = 180
+    }
+    if (activeMap.top) {
+      this.speed = 100
+    }
+    if (activeMap.bottom) {
+      this.speed = -100
+    }
+    super.update(dt)
   }
 
   onEmitBullets(e) {

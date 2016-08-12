@@ -3,12 +3,15 @@ export default class Human {
     this.id = id
 
     this.world = bundle.world
-    this.ear = bundle.ear
     this.entity = bundle.entity
   }
 
-  hear(data) {
-    this.ear.emit(data.eventName, data)
+  hear(pack) {
+    this.entity.receivePack(pack)
+  }
+
+  bindRoar(fn) {
+    this.entity.onReconciliation = fn
   }
 
   destroy() {
