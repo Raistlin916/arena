@@ -6,6 +6,9 @@ import favicon from 'koa-favicon'
 import Jade from 'koa-jade'
 import send from 'koa-send'
 import path from 'path'
+import session from 'koa-generic-session'
+import RedisStore from 'koa-redis'
+import convert from 'koa-convert'
 
 import router from './routes'
 import * as middlewares from './middlewares'
@@ -25,6 +28,10 @@ io.attach(server)
 
 const gameServer = new GameServer(io)
 
+app.keys = ['arena']
+app.use(convert(session({
+  store: new RedisStore()
+})))
 app.use(logger())
 app.use(favicon())
 if (process.env.NODE_ENV === 'dev') {
