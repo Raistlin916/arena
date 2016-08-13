@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
-const router = koaRouter()
 
+const router = koaRouter()
 
 router.get('/', async ctx => {
   ctx.render('index')

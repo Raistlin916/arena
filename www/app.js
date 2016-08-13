@@ -9,6 +9,8 @@ import path from 'path'
 import session from 'koa-generic-session'
 import RedisStore from 'koa-redis'
 import convert from 'koa-convert'
+import cookie from 'cookie'
+import co from 'co'
 
 import router from './routes'
 import * as middlewares from './middlewares'
@@ -21,16 +23,11 @@ const jade = new Jade({
 })
 jade.use(app)
 
-const io = new Socket()
-const server = http.createServer(app.callback())
-
-io.attach(server)
-
-const gameServer = new GameServer(io)
+const sessionStore = new RedisStore()
 
 app.keys = ['arena']
 app.use(convert(session({
-  store: new RedisStore()
+  store: sessionStore
 })))
 app.use(logger())
 app.use(favicon())
@@ -45,4 +42,25 @@ app.use(router.allowedMethods())
 app.use(async (ctx) =>
   send(ctx, ctx.path, { root: path.join(__dirname, '/static') })
 )
+
+const io = new Socket()
+const server = http.createServer(app.callback())
+
+io.attach(server)
+
+io.use((socket, next) => {
+  const sid = cookie.parse(socket.handshake.headers.cookie)['koa.sid']
+  co(function*() {
+    const session = yield sessionStore.get(`koa:sess:${sid}`)
+    if (session) {
+      socket.session = session
+      next(null, true)
+    } else {
+      throw new Error('Authentication error.')
+    }
+  })
+})
+
+const gameServer = new GameServer(io)
+
 server.listen(3000, () => console.log('server listening on port 3000'))
