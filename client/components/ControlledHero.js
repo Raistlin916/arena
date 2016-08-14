@@ -1,16 +1,13 @@
-import HeroCore from '../../core/components/Hero'
+import Hero from '../../core/components/Hero'
 
 
-export default class Hero extends HeroCore {
+export default class ControlledHero extends Hero {
   constructor(bundle, world, input) {
     super(bundle, world)
     this.input = input
     this.pendingInputs = []
     this.inputSeq = 0
-
-    if (input) {
-      this.world.socket.on('reconciliation', data => this.onReconciliation(data.seq, data.bundle))
-    }
+    this.world.socket.on('reconciliation', data => this.onReconciliation(data.seq, data.bundle))
   }
 
   onReconciliation(seq, bundle) {
@@ -21,6 +18,7 @@ export default class Hero extends HeroCore {
 
   packageInput(dt) {
     if (this.pendingInputs.length >= 100) {
+      console.log('lag')
       return
     }
 
@@ -33,17 +31,10 @@ export default class Hero extends HeroCore {
     this.pendingInputs.push(currentPackage)
 
     this.applyInput(currentPackage.dt, currentPackage.activeMap)
-
-    setTimeout(() => {
-      this.world.socket.emit('input_pack', currentPackage)
-    }, 500)
+    this.world.socket.emit('input_pack', currentPackage)
   }
 
   update(dt) {
-    if (this.input) {
-      this.packageInput(dt)
-    } else {
-      super.update(dt)
-    }
+    this.packageInput(dt)
   }
 }

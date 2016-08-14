@@ -49,15 +49,14 @@ const server = http.createServer(app.callback())
 io.attach(server)
 
 io.use((socket, next) => {
-  const sid = cookie.parse(socket.handshake.headers.cookie)['koa.sid']
   co(function*() {
-    const session = yield sessionStore.get(`koa:sess:${sid}`)
-    if (session) {
-      socket.session = session
-      next(null, true)
-    } else {
-      throw new Error('Authentication error.')
+    if (socket.handshake.headers.cookie === undefined) {
+      return next(null, true)
     }
+    const sid = cookie.parse(socket.handshake.headers.cookie)['koa.sid']
+    const session = yield sessionStore.get(`koa:sess:${sid}`)
+    socket.session = session
+    next(null, true)
   })
 })
 
