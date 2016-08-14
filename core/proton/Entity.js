@@ -22,16 +22,15 @@ export default class Entity extends Obj {
     this.width = bundle.width
     this.height = bundle.height
 
-    this.centerCoord = new Vector({
-      x: bundle.coord.x + this.width / 2,
-      y: bundle.coord.y + this.height / 2
-    })
+    this.updateShortcut()
   }
 
   update(dt) {
     this.velocity.add(this.acc.clone().scale(dt, dt))
     this.coord.add(this.velocity.clone().scale(dt, dt))
+  }
 
+  updateShortcut() {
     this.centerCoord = new Vector({
       x: this.coord.x + this.width / 2,
       y: this.coord.y + this.height / 2
@@ -40,6 +39,29 @@ export default class Entity extends Obj {
 
   merge(targetBundle) {
     this.coord = new Vector(targetBundle.coord)
+  }
+
+  setInterpolate(targetBundle) {
+    const now = Date.now()
+    this.intervalOfInterp = now - this.lastInterpolateTime
+    this.lastInterpolateTime = now
+    this.interpBaseCoord = this.coord.clone()
+    this.interpCoord = new Vector(targetBundle.coord).sub(this.coord.clone())
+  }
+
+  updateInterpolate() {
+    if (!this.intervalOfInterp) {
+      return
+    }
+    const elapse = Date.now() - this.lastInterpolateTime
+    const percent = Math.min(elapse / this.intervalOfInterp, 1)
+
+    if (this.interpBaseCoord && this.interpCoord) {
+      this.coord = this.interpBaseCoord.clone()
+        .add(this.interpCoord.clone().scale(percent, percent))
+    }
+
+    this.updateShortcut()
   }
 
   export() {
