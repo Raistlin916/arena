@@ -14,7 +14,7 @@ export default class PolarEntity extends Obj {
       height: 1,
       speed: 0,
       speedOfRotate: 0,
-      angle: 90,
+      angle: 0,
       rotate: 0
     }, bundle)
 
@@ -38,7 +38,7 @@ export default class PolarEntity extends Obj {
   updateShortcut() {
     const radians = this.angle / 180 * Math.PI
     this.radiansOfAngle = radians
-    this.direction = new Vector({ x: Math.sin(radians), y: -Math.cos(radians) })
+    this.direction = new Vector({ x: Math.cos(radians), y: Math.sin(radians) })
     this.centerCoord = new Vector({
       x: this.coord.x + (this.width / 2),
       y: this.coord.y + (this.height / 2)
@@ -67,14 +67,10 @@ export default class PolarEntity extends Obj {
     const elapse = Date.now() - this.lastInterpolateTime
     const percent = Math.min(elapse / this.intervalOfInterp, 1)
 
-    if (this.interpBaseCoord && this.interpCoord) {
-      this.coord = this.interpBaseCoord.clone()
+    this.coord = this.interpBaseCoord.clone()
         .add(this.interpCoord.clone().scale(percent, percent))
-    }
+    this.angle = this.interpBaseAngle + this.interpAngle * percent
 
-    if (this.interpBaseAngle && this.interpAngle) {
-      this.angle = this.interpBaseAngle + this.interpAngle * percent
-    }
 
     this.updateShortcut()
   }

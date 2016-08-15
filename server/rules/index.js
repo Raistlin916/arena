@@ -25,7 +25,6 @@ export default class Rules {
   addHuman(id) {
     const hero = new Hero({
       coord: { x: 100, y: 50 },
-      color: `#${((1 << 24) * Math.random() | 0).toString(16)}`,
       name: `匿名#${id}`
     }, this.world)
     this.world.add(hero)

@@ -9,7 +9,6 @@ export default class Hero extends PolarEntity {
     }, bundle)
     super(bundle)
 
-    this.color = bundle.color
     this.name = bundle.name || '匿名'
     this.world = world
   }
@@ -43,15 +42,28 @@ export default class Hero extends PolarEntity {
 
   render(ctx) {
     ctx.save()
+
     ctx.translate(this.centerCoord.x, this.centerCoord.y)
     ctx.rotate(this.radiansOfAngle)
-    ctx.fillStyle = this.color
-    ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height)
+
+    ctx.lineWidth = 1.8
+    ctx.strokeStyle = '#8B8C8B'
     ctx.beginPath()
-    ctx.moveTo(0, 0)
-    ctx.lineTo(0, (-this.height / 2) - 3)
-    ctx.strokeStyle = 'red'
+    ctx.moveTo(0, -5)
+    ctx.lineTo(25, -5)
+    ctx.lineTo(25, 5)
+    ctx.lineTo(0, 5)
+    ctx.lineTo(0, -5)
+    ctx.fillStyle = '#B9B5B5'
+    ctx.fill()
     ctx.stroke()
+
+    ctx.beginPath()
+    ctx.arc(0, 0, 15, 0, 2 * Math.PI)
+    ctx.fillStyle = '#68C9E9'
+    ctx.fill()
+    ctx.stroke()
+
     ctx.restore()
 
     ctx.save()
@@ -65,7 +77,6 @@ export default class Hero extends PolarEntity {
 
   export() {
     return Object.assign(super.export(), {
-      color: this.color,
       name: this.name
     })
   }
