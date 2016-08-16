@@ -28,9 +28,6 @@ export default class RenderTimer {
   requestFrame(cb) {
     this.tid = requestAnimationFrame(time => {
       const dt = time - this.lastTime
-      if (dt < 16) {
-        return
-      }
       this.lastTime = time
       this.totalTime += dt
       cb(dt)

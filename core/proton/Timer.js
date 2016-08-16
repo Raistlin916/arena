@@ -7,7 +7,9 @@ export default class Timer {
     setTimeout(() => {
       const time = new Date().getTime()
       let dt = time - this.lastTime
-      if (dt > 100) dt = 16
+      if (dt > 100) {
+        dt = 16
+      }
       this.lastTime = time
       dt /= 1000
       this.totalTime += dt
