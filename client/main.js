@@ -1,3 +1,4 @@
+import Business from './business'
 import World from './proton/World'
 
 const canvas = document.querySelector('canvas')
@@ -11,3 +12,4 @@ const socket = io()
 const world = new World({}, canvas, socket)
 world.run()
 
+new Business()
