@@ -7,10 +7,9 @@ const keyMap = {
 }
 
 export default class Input {
-  constructor(socket) {
+  constructor() {
     this.bindEvent()
     this.activeMap = {}
-    this.socket = socket
   }
 
   bindEvent() {

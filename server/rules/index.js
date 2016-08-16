@@ -15,21 +15,21 @@ export default class Rules {
 
     for (let i = 0; i < 10; i++) {
       this.world.add(new Box({
-        coord: { x: 150 + i * 11, y: 50 },
-        width: 10,
-        height: 10
+        coord: { x: 150 + i * 30, y: 50 },
+        width: 20,
+        height: 20
       }))
     }
   }
 
-  addHuman(id) {
+  addHuman(name) {
     const hero = new Hero({
       coord: { x: 100, y: 50 },
-      name: `匿名#${id}`
+      name
     }, this.world)
     this.world.add(hero)
 
-    return new Human(id, {
+    return new Human({
       world: this.world,
       entity: hero
     })

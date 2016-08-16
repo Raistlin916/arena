@@ -27,9 +27,11 @@ export default class Bullet extends Entity {
     })
   }
   render(ctx) {
+    ctx.save()
     ctx.fillStyle = 'green'
     ctx.beginPath()
     ctx.arc(this.coord.x, this.coord.y, this.radius, 0, 2 * Math.PI)
     ctx.fill()
+    ctx.restore()
   }
 }

@@ -68,10 +68,10 @@ export default class Hero extends PolarEntity {
 
     ctx.save()
     ctx.translate(this.centerCoord.x, this.coord.y)
-    ctx.fillStyle = 'white'
+    ctx.fillStyle = '#8A95E3'
     ctx.textAlign = 'center'
     ctx.fontSize = 12
-    ctx.fillText(this.name, 0, -5)
+    ctx.fillText(this.name, 0, -15)
     ctx.restore()
   }
 

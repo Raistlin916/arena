@@ -2,12 +2,12 @@ doctype html
 html(lang="en")
   head
     title arena
+    script(src="socket.io/socket.io.js")
+    script(src="build/main.bundle.js")
   body
     .container
       .login-wrap.js-login-wrap
         .input-wrap
-          input.login-input.js-name-input(type="text", placeholder="Type your name")
+          input.login-input.js-name-input(type="text", placeholder="Type your name", maxlength=20)
         .btn.btn-block.js-spawn-btn Spawn
       canvas#game-container
-    script(src="socket.io/socket.io.js")
-    script(src="build/main.bundle.js")

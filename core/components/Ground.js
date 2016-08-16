@@ -9,7 +9,5 @@ export default class Ground extends Obj {
 
   render(ctx, { width, height }) {
     ctx.clearRect(0, 0, width, height)
-    ctx.fillStyle = '#e5e5e5'
-    ctx.fillRect(0, 0, width, height)
   }
 }

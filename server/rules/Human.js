@@ -1,7 +1,5 @@
 export default class Human {
-  constructor(id, bundle) {
-    this.id = id
-
+  constructor(bundle) {
     this.world = bundle.world
     this.entity = bundle.entity
   }

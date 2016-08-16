@@ -20,8 +20,9 @@ export default class World extends WorldCore {
     }
     this.socket = socket
 
-    this.input = new Input(this.socket)
+    this.userData = bundle.userData
 
+    this.input = new Input()
     this.initRenderTimer()
     this.initSocket(socket)
   }
@@ -48,7 +49,11 @@ export default class World extends WorldCore {
   }
 
   initSocket(socket) {
-    socket.on('init', data => {
+    socket.emit('init', {
+      userData: {
+        name: this.userData.name
+      }
+    }, data => {
       this.userGid = data.gid
       data.entities.forEach(item => {
         const entity = this.entityFactory(item.className, item)
