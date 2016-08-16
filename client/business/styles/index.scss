@@ -1,0 +1,25 @@
+html {
+  font-family: Open Sans,Helvetica,STHeiti,"Microsoft YaHei",Verdana,Arial,Tahoma,sans-serif;
+}
+
+body {
+  background-color: #656A90;
+}
+
+.container {
+  margin: 40px auto;
+  max-width: 1000px;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0,0,0,.1);
+}
+
+
+button.btn.btn-block {
+  display: block;
+  background-color: #8A95E3;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 3px;
+  border: none;
+}
