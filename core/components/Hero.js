@@ -1,5 +1,4 @@
 import PolarEntity from '../proton/PolarEntity'
-import Bullet from '../components/Bullet'
 
 export default class Hero extends PolarEntity {
   constructor(bundle, world) {
@@ -29,15 +28,6 @@ export default class Hero extends PolarEntity {
       this.speed = -100
     }
     super.update(dt)
-  }
-
-  onEmitBullets(e) {
-    if (e.keyName === 'space' && e.type === 'end') {
-      this.world.add(new Bullet({
-        coord: this.centerCoord,
-        velocity: this.direction.clone().scale(200, 200)
-      }))
-    }
   }
 
   render(ctx) {

@@ -66,9 +66,6 @@ export default class World extends WorldCore {
         if (item.gid === this.userGid) {
           return
         }
-        if (item.className === 'Box') {
-          return
-        }
         const exist = data.entities.some(entity => {
           if (entity.gid === item.gid) {
             if (item.setInterpolate) {
@@ -85,9 +82,6 @@ export default class World extends WorldCore {
       })
       data.entities.forEach(item => {
         if (item.gid === this.userGid) {
-          return
-        }
-        if (item.className === 'Box') {
           return
         }
         const entity = this.entityFactory(item.className, item)

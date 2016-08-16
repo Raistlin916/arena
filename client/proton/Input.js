@@ -23,6 +23,7 @@ export default class Input {
       if (!keyName) {
         return
       }
+      e.preventDefault()
       if (type === 'start') {
         if (this.activeMap[keyName]) {
           return
