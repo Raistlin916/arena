@@ -4,9 +4,10 @@ html(lang="en")
     title arena
   body
     .container
-      .login-wrap
-        input.login-input(type="text", placeholder="input your name")
-        button.btn.btn-block(type="button") Spawn
+      .login-wrap.js-login-wrap
+        .input-wrap
+          input.login-input.js-name-input(type="text", placeholder="Type your name")
+        .btn.btn-block.js-spawn-btn Spawn
       canvas#game-container
     script(src="socket.io/socket.io.js")
     script(src="build/main.bundle.js")

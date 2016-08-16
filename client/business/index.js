@@ -8,6 +8,11 @@ export default class Business {
   }
 
   initLoginComponent() {
-
+    const loginWrap = document.querySelector('.js-login-wrap')
+    const nameInput = document.querySelector('.js-name-input')
+    document.querySelector('.js-spawn-btn').onclick = () => {
+      loginWrap.style.display = 'none';
+      this.onLogin(nameInput.value)
+    }
   }
 }
