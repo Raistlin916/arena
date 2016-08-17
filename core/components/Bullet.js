@@ -4,7 +4,7 @@ import SAT from '../lib/SAT'
 export default class Bullet extends Entity {
   constructor(...args) {
     super(...args)
-    this.radius = 2
+    this.radius = 5
     this.distance = 0
   }
   update(dt, world) {
@@ -28,10 +28,13 @@ export default class Bullet extends Entity {
   }
   render(ctx) {
     ctx.save()
-    ctx.fillStyle = 'green'
+    ctx.fillStyle = '#68C9E9'
+    ctx.strokeStyle = '#8B8C8B'
+    ctx.lineWidth = 2
     ctx.beginPath()
     ctx.arc(this.coord.x, this.coord.y, this.radius, 0, 2 * Math.PI)
     ctx.fill()
+    ctx.stroke()
     ctx.restore()
   }
 }
