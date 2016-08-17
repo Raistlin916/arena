@@ -6,6 +6,7 @@ import Bullet from '../../core/components/Bullet'
 import Ground from '../../core/components/Ground'
 import Input from './Input'
 import RenderTimer from './RenderTimer'
+import Camera from '../components/Camera'
 
 const classMap = { Box, Hero, Bullet, Ground }
 
@@ -23,7 +24,7 @@ export default class World extends WorldCore {
     this.userData = bundle.userData
 
     this.input = new Input()
-    this.initRenderTimer()
+    this.initRenderer(this.ctx)
     this.initSocket(socket)
   }
 
@@ -59,6 +60,8 @@ export default class World extends WorldCore {
         const entity = this.entityFactory(item.className, item)
         return this.add(entity)
       })
+
+      this.camera.capture(this.entityOfUser)
     })
 
     socket.on('sync', data => {
@@ -92,11 +95,17 @@ export default class World extends WorldCore {
     socket.on('disconnect', () => console.error('socket disconnected'))
   }
 
-  initRenderTimer() {
+  initRenderer(ctx) {
     this.renderTimer = new RenderTimer()
+    this.camera = new Camera()
+    this.camera.setSize(this.info)
+
     const round = () => {
       this.renderTimer.requestFrame(round)
-      this.objects.forEach(item => item.render(this.ctx, this.info))
+
+      this.camera.render(ctx)
+      this.objects.forEach(item => item.render(ctx, this.info))
+      this.camera.endRender(ctx)
     }
     this.renderTimer.requestFrame(round)
   }
