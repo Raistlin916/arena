@@ -9,12 +9,17 @@ export default class Gun extends Entity {
     this.elapseAfterFired = 0
   }
 
-  tryToFire(world, coord, direction) {
+  tryToFire(world, positionOfFire, direction) {
     if (!this.cooldown) {
       return
     }
+
     world.add(new Bullet({
-      coord,
+      coord: positionOfFire.add(
+          this.coord.clone()
+            .add({ x: this.width, y: this.height / 2 })
+            .rotate(Math.atan2(direction.y, direction.x))
+          ),
       velocity: direction.scale(200, 200)
     }))
     this.cooldown = false

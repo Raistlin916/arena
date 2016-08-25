@@ -3,8 +3,8 @@ import PolarEntity from '../proton/PolarEntity'
 export default class Hero extends PolarEntity {
   constructor(bundle, world) {
     bundle = Object.assign({
-      width: 10,
-      height: 10
+      width: 40,
+      height: 40
     }, bundle)
     super(bundle)
 

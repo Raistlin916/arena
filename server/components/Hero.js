@@ -7,8 +7,11 @@ export default class Hero extends HeroCore {
     this.inputSeq = null
     this.elapseAfterSync = 0
 
+    this.r = Math.min(this.width, this.height) / 2
     this.gun = new Gun({
-      coord: { x: 10, y: 10 }
+      coord: { x: 0, y: -10 },
+      width: 30,
+      height: 20
     })
   }
 

@@ -13,6 +13,7 @@ export default class Bullet extends Entity {
     ctx.lineWidth = 2
     ctx.beginPath()
     ctx.arc(this.coord.x, this.coord.y, this.radius, 0, 2 * Math.PI)
+    ctx.closePath()
     ctx.fill()
     ctx.stroke()
     ctx.restore()
