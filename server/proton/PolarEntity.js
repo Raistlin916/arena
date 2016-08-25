@@ -50,30 +50,6 @@ export default class PolarEntity extends Obj {
     this.angle = targetBundle.angle
   }
 
-  setInterpolate(targetBundle) {
-    const now = Date.now()
-    this.intervalOfInterp = now - this.lastInterpolateTime
-    this.lastInterpolateTime = now
-    this.interpBaseCoord = this.coord.clone()
-    this.interpCoord = new Vector(targetBundle.coord).sub(this.coord.clone())
-    this.interpBaseAngle = this.angle
-    this.interpAngle = targetBundle.angle - this.angle
-  }
-
-  updateInterpolate() {
-    if (!this.intervalOfInterp) {
-      return
-    }
-    const elapse = Date.now() - this.lastInterpolateTime
-    const percent = Math.min(elapse / this.intervalOfInterp, 1)
-
-    this.coord = this.interpBaseCoord.clone()
-        .add(this.interpCoord.clone().scale(percent, percent))
-    this.angle = this.interpBaseAngle + this.interpAngle * percent
-
-
-    this.updateShortcut()
-  }
 
   export() {
     return Object.assign(super.export(), {

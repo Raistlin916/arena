@@ -1,8 +1,8 @@
 import WorldCore from '../../server/proton/World'
 import ControlledHero from '../components/ControlledHero'
-import Hero from '../../server/components/Hero'
-import Box from '../../server/components/Box'
-import Bullet from '../../server/components/Bullet'
+import Hero from '../components/Hero'
+import Box from '../components/Box'
+import Bullet from '../components/Bullet'
 import Input from './Input'
 import RenderTimer from './RenderTimer'
 import Camera from '../components/Camera'
@@ -39,8 +39,8 @@ export default class World extends WorldCore {
         if (item.gid === this.userGid) {
           return item.update(dt, this)
         }
-        if (item.updateInterpolate) {
-          return item.updateInterpolate(dt, this)
+        if (item.interpolation) {
+          return item.interpolation.update(dt)
         }
         return item.update(dt, this)
       })
@@ -70,8 +70,8 @@ export default class World extends WorldCore {
         }
         const exist = data.entities.some(entity => {
           if (entity.gid === item.gid) {
-            if (item.setInterpolate) {
-              item.setInterpolate(entity)
+            if (item.interpolation) {
+              item.interpolation.set(entity)
             }
             data.entities.splice(data.entities.indexOf(entity), 1)
             return true
@@ -103,7 +103,12 @@ export default class World extends WorldCore {
       this.renderTimer.requestFrame(round)
 
       this.camera.render(ctx)
-      this.objects.forEach(item => item.render(ctx, this.info))
+      this.objects.forEach(item => {
+        if (item.interpolation && !item.interpolation.valid) {
+          return
+        }
+        item.render(ctx, this.info)
+      })
       this.camera.endRender(ctx)
     }
     this.renderTimer.requestFrame(round)

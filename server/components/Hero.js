@@ -1,36 +1,5 @@
 import HeroCore from './HeroCore'
-import Bullet from './Bullet'
-
-class Gun {
-  constructor() {
-    this.fireInterval = 0.1
-    this.cooldown = true
-    this.elapseAfterFired = 0
-  }
-
-  tryToFire(world, coord, direction) {
-    if (!this.cooldown) {
-      return
-    }
-    world.add(new Bullet({
-      coord,
-      velocity: direction.scale(200, 200)
-    }))
-    this.cooldown = false
-  }
-
-  update(dt) {
-    if (this.cooldown) {
-      return
-    }
-    this.elapseAfterFired += dt
-    if (this.elapseAfterFired >= this.fireInterval) {
-      this.cooldown = true
-      this.elapseAfterFired = 0
-    }
-  }
-}
-
+import Gun from './Gun'
 
 export default class Hero extends HeroCore {
   constructor(...args) {

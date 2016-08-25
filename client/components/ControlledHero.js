@@ -1,5 +1,4 @@
-import Hero from '../../server/components/HeroCore'
-
+import Hero from './Hero'
 
 export default class ControlledHero extends Hero {
   constructor(bundle, world, input) {
@@ -8,6 +7,8 @@ export default class ControlledHero extends Hero {
     this.pendingInputs = []
     this.inputSeq = 0
     this.world.socket.on('reconciliation', data => this.onReconciliation(data.seq, data.bundle))
+
+    this.interpolation = null
   }
 
   onReconciliation(seq, bundle) {
