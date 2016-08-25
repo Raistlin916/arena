@@ -1,5 +1,5 @@
-import World from '../../core/proton/World'
-import Box from '../../core/components/Box'
+import World from '../proton/World'
+import Box from '../components/Box'
 import Hero from '../components/Hero'
 
 import Human from './Human.js'

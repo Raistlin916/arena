@@ -12,15 +12,16 @@ export default class Server {
   onInit(socket) {
     socket.on('init', (data, cb) => {
       const human = this.rules.addHuman(data.userData.name || '匿名')
-      human.bindRoar((seq, bundle) => {
+
+      human.entity.onReconciliation = (seq, bundle) => {
         socket.emit('reconciliation', { seq, bundle })
-      })
+      }
       cb({
         gid: human.entity.gid,
         entities: this.rules.getEntities()
       })
 
-      socket.on('input_pack', pack => human.hear(pack))
+      socket.on('input_pack', pack => human.entity.receivePack(pack))
       socket.on('disconnect', () => {
         human.destroy()
       })

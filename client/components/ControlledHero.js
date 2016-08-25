@@ -1,4 +1,4 @@
-import Hero from '../../core/components/Hero'
+import Hero from '../../server/components/HeroCore'
 
 
 export default class ControlledHero extends Hero {

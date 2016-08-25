@@ -1,5 +1,5 @@
-import HeroCore from '../../core/components/Hero'
-import Bullet from '../../core/components/Bullet'
+import HeroCore from './HeroCore'
+import Bullet from './Bullet'
 
 class Gun {
   constructor() {
