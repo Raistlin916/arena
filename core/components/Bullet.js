@@ -27,6 +27,9 @@ export default class Bullet extends Entity {
     })
   }
   render(ctx) {
+    if (!this.intervalOfInterp) {
+      return
+    }
     ctx.save()
     ctx.fillStyle = '#68C9E9'
     ctx.strokeStyle = '#8B8C8B'

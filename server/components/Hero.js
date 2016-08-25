@@ -3,7 +3,7 @@ import Bullet from '../../core/components/Bullet'
 
 class Gun {
   constructor() {
-    this.fireInterval = 1
+    this.fireInterval = 0.1
     this.cooldown = true
     this.elapseAfterFired = 0
   }

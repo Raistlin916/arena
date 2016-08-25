@@ -3,12 +3,11 @@ import ControlledHero from '../components/ControlledHero'
 import Hero from '../../core/components/Hero'
 import Box from '../../core/components/Box'
 import Bullet from '../../core/components/Bullet'
-import Ground from '../../core/components/Ground'
 import Input from './Input'
 import RenderTimer from './RenderTimer'
 import Camera from '../components/Camera'
 
-const classMap = { Box, Hero, Bullet, Ground }
+const classMap = { Box, Hero, Bullet }
 
 export default class World extends WorldCore {
 
