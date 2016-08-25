@@ -7,7 +7,9 @@ export default class Hero extends HeroCore {
     this.inputSeq = null
     this.elapseAfterSync = 0
 
-    this.gun = new Gun()
+    this.gun = new Gun({
+      coord: { x: 10, y: 10 }
+    })
   }
 
   receivePack(pack) {

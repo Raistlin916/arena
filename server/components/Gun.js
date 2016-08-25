@@ -1,8 +1,9 @@
 import Entity from '../proton/Entity'
 import Bullet from './Bullet'
 
-export default class Gun {
+export default class Gun extends Entity {
   constructor(bundle) {
+    super(bundle)
     this.fireInterval = 0.1
     this.cooldown = true
     this.elapseAfterFired = 0
