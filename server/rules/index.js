@@ -7,8 +7,8 @@ import Human from './Human.js'
 export default class Rules {
   constructor() {
     this.size = {
-      w: 2000,
-      h: 2000
+      w: 500,
+      h: 500
     }
     this.world = new World({
       size: this.size
@@ -27,7 +27,7 @@ export default class Rules {
   addHuman(name) {
     const spawnCoord = {
       x: math.getRandomInt(0, this.size.w),
-      y: math.getRandomInt(0, this.size.y)
+      y: math.getRandomInt(0, this.size.h)
     }
     const hero = new Hero({
       coord: spawnCoord,

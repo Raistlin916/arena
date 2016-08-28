@@ -12,17 +12,20 @@ export default class World {
 
   add(obj) {
     if (this.objects.indexOf(obj) > -1) {
-      return;
+      return false;
     }
     this.objects.push(obj)
+
+    return true
   }
 
   remove(obj) {
     const index = this.objects.indexOf(obj)
     if (index === -1) {
-      return
+      return false
     }
     this.objects.splice(index, 1)
+    return true
   }
 
   run() {

@@ -25,6 +25,13 @@ export default class World extends WorldCore {
     this.input = new Input()
     this.initRenderer(this.ctx)
     this.initSocket(socket)
+
+
+    this.layers = {
+      bullet: [],
+      rest: []
+    }
+    this.layersOrder = ['bullet', 'rest']
   }
 
   run() {
@@ -46,6 +53,30 @@ export default class World extends WorldCore {
       })
     }
     this.timer.requestFrame(round)
+  }
+
+  add(obj) {
+    if (!super.add(obj)) {
+      return
+    }
+
+    if (obj.className === 'Bullet') {
+      this.layers.bullet.push(obj)
+    } else {
+      this.layers.rest.push(obj)
+    }
+  }
+
+  remove(obj) {
+    if (!super.remove(obj)) {
+      return
+    }
+
+    if (obj.className === 'Bullet') {
+      this.layers.bullet.splice(this.layers.bullet.indexOf(obj), 1)
+    } else {
+      this.layers.rest.splice(this.layers.rest.indexOf(obj), 1)
+    }
   }
 
   initSocket(socket) {
@@ -99,16 +130,19 @@ export default class World extends WorldCore {
     this.camera = new Camera()
     this.camera.setSize(this.info)
 
+    const renderFn = item => {
+      if (item.interpolation && !item.interpolation.valid) {
+        return
+      }
+      item.render(ctx, this.info)
+    }
+
     const round = () => {
       this.renderTimer.requestFrame(round)
 
       this.camera.render(ctx)
-      this.objects.forEach(item => {
-        if (item.interpolation && !item.interpolation.valid) {
-          return
-        }
-        item.render(ctx, this.info)
-      })
+      this.layers.bullet.forEach(renderFn)
+      this.layers.rest.forEach(renderFn)
       this.camera.endRender(ctx)
     }
     this.renderTimer.requestFrame(round)
