@@ -1,12 +1,18 @@
+import math from '../lib/math'
 import World from '../proton/World'
 import Box from '../components/Box'
 import Hero from '../components/Hero'
-
 import Human from './Human.js'
 
 export default class Rules {
   constructor() {
-    this.world = new World()
+    this.size = {
+      w: 2000,
+      h: 2000
+    }
+    this.world = new World({
+      size: this.size
+    })
     this.world.run()
 
     for (let i = 0; i < 10; i++) {
@@ -19,8 +25,12 @@ export default class Rules {
   }
 
   addHuman(name) {
+    const spawnCoord = {
+      x: math.getRandomInt(0, this.size.w),
+      y: math.getRandomInt(0, this.size.y)
+    }
     const hero = new Hero({
-      coord: { x: 100, y: 50 },
+      coord: spawnCoord,
       name
     }, this.world)
     this.world.add(hero)
