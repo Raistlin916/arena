@@ -22,7 +22,7 @@ export default class Hero extends HeroCore {
 
   applyInput(dt, activeMap) {
     if (activeMap.space) {
-      this.gun.tryToFire(this.world, this.centerCoord.clone(), this.direction.clone())
+      this.gun.tryToFire(this.world, this.coord.clone(), this.direction.clone())
     }
     super.applyInput(dt, activeMap)
   }

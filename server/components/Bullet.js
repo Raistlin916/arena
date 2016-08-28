@@ -19,7 +19,7 @@ export default class Bullet extends Entity {
 
     const circle = new SAT.Circle(this.coord.clone(), this.radius)
     world.query('Box').forEach(box => {
-      const b = new SAT.Box(box.coord.clone(), box.width, box.height).toPolygon()
+      const b = new SAT.Box(box.getLTCoord(), box.width, box.height).toPolygon()
       if (SAT.testCirclePolygon(circle, b)) {
         box.die()
         this.die()

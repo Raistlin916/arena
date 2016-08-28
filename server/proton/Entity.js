@@ -25,6 +25,13 @@ export default class Entity extends Obj {
     this.updateShortcut()
   }
 
+  getLTCoord() {
+    return new Vector({
+      x: this.coord.x - this.width / 2,
+      y: this.coord.y - this.width / 2
+    })
+  }
+
   update(dt) {
     this.velocity.add(this.acc.clone().scale(dt, dt))
     this.coord.add(this.velocity.clone().scale(dt, dt))
@@ -35,10 +42,7 @@ export default class Entity extends Obj {
   }
 
   updateShortcut() {
-    this.centerCoord = new Vector({
-      x: this.coord.x + this.width / 2,
-      y: this.coord.y + this.height / 2
-    })
+
   }
 
   export() {

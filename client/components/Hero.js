@@ -16,7 +16,7 @@ export default class Hero extends HeroCore {
 
   render(ctx) {
     ctx.save()
-    ctx.translate(this.centerCoord.x, this.centerCoord.y)
+    ctx.translate(this.coord.x, this.coord.y)
     ctx.rotate(this.radiansOfAngle)
 
 
@@ -37,11 +37,11 @@ export default class Hero extends HeroCore {
     ctx.restore()
 
     ctx.save()
-    ctx.translate(this.centerCoord.x, this.coord.y)
+    ctx.translate(this.coord.x, this.coord.y)
     ctx.fillStyle = '#8A95E3'
     ctx.textAlign = 'center'
     ctx.fontSize = 12
-    ctx.fillText(this.name, 0, -this.r)
+    ctx.fillText(this.name, 0, -this.r - 15)
     ctx.restore()
   }
 }

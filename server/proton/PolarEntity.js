@@ -39,10 +39,6 @@ export default class PolarEntity extends Obj {
     const radians = this.angle / 180 * Math.PI
     this.radiansOfAngle = radians
     this.direction = new Vector({ x: Math.cos(radians), y: Math.sin(radians) })
-    this.centerCoord = new Vector({
-      x: this.coord.x + (this.width / 2),
-      y: this.coord.y + (this.height / 2)
-    })
   }
 
   merge(targetBundle) {
