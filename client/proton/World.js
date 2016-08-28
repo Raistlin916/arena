@@ -6,6 +6,7 @@ import Bullet from '../components/Bullet'
 import Input from './Input'
 import RenderTimer from './RenderTimer'
 import Camera from '../components/Camera'
+import UI from '../UI'
 
 const classMap = { Box, Hero, Bullet }
 
@@ -25,13 +26,13 @@ export default class World extends WorldCore {
     this.input = new Input()
     this.initRenderer(this.ctx)
     this.initSocket(socket)
+    this.ui = new UI()
 
 
     this.layers = {
       bullet: [],
       rest: []
     }
-    this.layersOrder = ['bullet', 'rest']
   }
 
   run() {
@@ -123,6 +124,8 @@ export default class World extends WorldCore {
     })
 
     socket.on('disconnect', () => console.error('socket disconnected'))
+
+    socket.on('business', data => this.ui.setData(data))
   }
 
   initRenderer(ctx) {
@@ -144,6 +147,8 @@ export default class World extends WorldCore {
       this.layers.bullet.forEach(renderFn)
       this.layers.rest.forEach(renderFn)
       this.camera.endRender(ctx)
+
+      this.ui.render(ctx)
     }
     this.renderTimer.requestFrame(round)
   }

@@ -1,5 +1,6 @@
 import HeroCore from '../../server/components/HeroCore'
 import Interpolation from '../proton/Interpolation'
+import ctxUtils from '../lib/ctxUtils'
 import Gun from './Gun'
 
 export default class Hero extends HeroCore {
@@ -40,7 +41,7 @@ export default class Hero extends HeroCore {
     ctx.translate(this.coord.x, this.coord.y)
     ctx.fillStyle = '#8A95E3'
     ctx.textAlign = 'center'
-    ctx.fontSize = 12
+    ctxUtils.setFontSize(ctx, 12)
     ctx.fillText(this.name, 0, -this.r - 15)
     ctx.restore()
   }

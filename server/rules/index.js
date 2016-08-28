@@ -44,4 +44,8 @@ export default class Rules {
   getEntities() {
     return this.world.export()
   }
+
+  countOnlineNumber() {
+    return this.world.query('Hero').length
+  }
 }

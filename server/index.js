@@ -34,6 +34,12 @@ export default class Server {
         entities: this.rules.getEntities()
       })
     , 100)
+
+    setInterval(() =>
+      this.io.sockets.emit('business', {
+        onlineNum: this.rules.countOnlineNumber()
+      })
+    , 1000)
   }
 }
 
