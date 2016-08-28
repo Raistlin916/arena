@@ -7,6 +7,7 @@ export default class Gun extends Entity {
     const { width, height } = this
     ctx.save()
     ctx.lineWidth = 1.5
+    ctx.beginPath()
     ctx.strokeStyle = '#8B8C8B'
     ctx.fillStyle = '#B9B5B5'
     ctx.fillRect(x, y, width, height)

@@ -4,7 +4,7 @@ import Bullet from './Bullet'
 export default class Gun extends Entity {
   constructor(bundle) {
     super(bundle)
-    this.fireInterval = 0.1
+    this.fireInterval = 0.5
     this.cooldown = true
     this.elapseAfterFired = 0
   }
