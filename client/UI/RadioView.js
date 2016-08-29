@@ -1,12 +1,9 @@
 export default class RadioView {
-  constructor(coord, getWorldSize, getUserCoord) {
+  constructor(coord, size, getWorldSize, getUserCoord) {
     this.coord = coord
     this.getWorldSize = getWorldSize
     this.getUserCoord = getUserCoord
-    this.size = {
-      w: 100,
-      h: 100
-    }
+    this.size = size
   }
 
   render(ctx) {
@@ -15,7 +12,7 @@ export default class RadioView {
     ctx.save()
     ctx.translate(this.coord.x, this.coord.y)
     ctx.beginPath()
-    ctx.fillStyle = '#e5e5e5'
+    ctx.fillStyle = 'rgba(0, 0, 0, .1)'
     ctx.fillRect(0, 0, this.size.w, this.size.h)
     ctx.fillStyle = 'red'
     ctx.fillRect(userCoord.x / worldSize.w * this.size.w,

@@ -26,8 +26,10 @@ export default class World extends WorldCore {
     this.input = new Input()
     this.initRenderer(this.ctx)
     this.initSocket(socket)
-    this.ui = new UI()
 
+    this.ui = new UI({
+      viewInfo: this.viewInfo
+    })
 
     this.layers = {
       bullet: [],
@@ -88,7 +90,9 @@ export default class World extends WorldCore {
     }, data => {
       this.userGid = data.gid
       this.worldInfo = data.worldInfo
-      this.ui.setData({ worldInfo: data.worldInfo })
+      this.ui.setData({
+        worldInfo: data.worldInfo
+      })
       data.entities.forEach(item => {
         const entity = this.entityFactory(item.className, item)
         return this.add(entity)
