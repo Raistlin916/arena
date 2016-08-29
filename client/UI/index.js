@@ -1,13 +1,19 @@
 import Text from './Text'
+import RadioView from './RadioView'
 
 export default class UI {
   constructor() {
-    this.components = []
-    this.components.push(
-      new Text({ x: 10, y: 20 },
+    const onlineNum = new Text({ x: 10, y: 20 },
         () => (this.data.onlineNum === undefined ? '' : `online: ${this.data.onlineNum}`),
         { fontSize: 14 })
-    )
+    const radioView = new RadioView({ x: 100, y: 100 },
+        () => this.data.worldInfo.size,
+        () => this.user.coord.clone())
+
+    this.components = [
+      onlineNum,
+      radioView
+    ]
 
     this.data = {}
   }
@@ -17,6 +23,10 @@ export default class UI {
   }
 
   setData(data) {
-    this.data.onlineNum = data.onlineNum
+    this.data = Object.assign({}, this.data, data)
+  }
+
+  bindUser(user) {
+    this.user = user
   }
 }

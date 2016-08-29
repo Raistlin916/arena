@@ -15,9 +15,9 @@ export default class World extends WorldCore {
   constructor(bundle, canvas, socket) {
     super(bundle)
     this.ctx = canvas.getContext('2d')
-    this.info = {
-      width: canvas.width,
-      height: canvas.height
+    this.viewInfo = {
+      w: canvas.width,
+      h: canvas.height
     }
     this.socket = socket
 
@@ -87,12 +87,14 @@ export default class World extends WorldCore {
       }
     }, data => {
       this.userGid = data.gid
+      this.worldInfo = data.worldInfo
+      this.ui.setData({ worldInfo: data.worldInfo })
       data.entities.forEach(item => {
         const entity = this.entityFactory(item.className, item)
         return this.add(entity)
       })
-
       this.camera.capture(this.entityOfUser)
+      this.ui.bindUser(this.entityOfUser)
     })
 
     socket.on('sync', data => {
@@ -131,13 +133,13 @@ export default class World extends WorldCore {
   initRenderer(ctx) {
     this.renderTimer = new RenderTimer()
     this.camera = new Camera()
-    this.camera.setSize(this.info)
+    this.camera.setSize(this.viewInfo)
 
     const renderFn = item => {
       if (item.interpolation && !item.interpolation.valid) {
         return
       }
-      item.render(ctx, this.info)
+      item.render(ctx, this.viewInfo)
     }
 
     const round = () => {

@@ -45,6 +45,10 @@ export default class Rules {
     return this.world.export()
   }
 
+  getWorldInfo() {
+    return this.world.getInfo()
+  }
+
   countOnlineNumber() {
     return this.world.query('Hero').length
   }

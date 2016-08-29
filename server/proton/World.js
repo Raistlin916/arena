@@ -8,6 +8,7 @@ export default class World {
 
     this.retrieve = new Retrieve(this.objects)
     this.timer = new Timer()
+    this.size = bundle.size
   }
 
   add(obj) {
@@ -57,5 +58,11 @@ export default class World {
 
   query(...args) {
     return this.retrieve.query(...args)
+  }
+
+  getInfo() {
+    return {
+      size: this.size
+    }
   }
 }

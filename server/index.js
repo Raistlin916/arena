@@ -18,13 +18,12 @@ export default class Server {
       }
       cb({
         gid: human.entity.gid,
-        entities: this.rules.getEntities()
+        entities: this.rules.getEntities(),
+        worldInfo: this.rules.getWorldInfo()
       })
 
       socket.on('input_pack', pack => human.entity.receivePack(pack))
-      socket.on('disconnect', () => {
-        human.destroy()
-      })
+      socket.on('disconnect', () => human.destroy())
     })
   }
 

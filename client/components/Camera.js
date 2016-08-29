@@ -13,8 +13,8 @@ export default class Camera {
     }
     const capturedCood = this.capturedEntity.coord.clone()
     ctx.save()
-    ctx.clearRect(0, 0, this.size.width, this.size.height)
-    ctx.translate(-capturedCood.x + this.size.width / 2, -capturedCood.y + this.size.height / 2)
+    ctx.clearRect(0, 0, this.size.w, this.size.h)
+    ctx.translate(-capturedCood.x + this.size.w / 2, -capturedCood.y + this.size.h / 2)
   }
 
   endRender(ctx) {
