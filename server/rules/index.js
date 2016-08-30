@@ -19,7 +19,8 @@ export default class Rules {
       this.world.add(new Box({
         coord: { x: 150 + i * 30, y: 50 },
         width: 20,
-        height: 20
+        height: 20,
+        // velocity: { x: math.getRandomInt(-10, 10), y: math.getRandomInt(-10, 10) }
       }))
     }
   }

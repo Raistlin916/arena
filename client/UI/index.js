@@ -10,16 +10,9 @@ export default class UI {
     const onlineNum = new Text({ x: 10, y: 20 },
         () => (this.data.onlineNum === undefined ? '' : `online: ${this.data.onlineNum}`),
         { fontSize: 14 })
-    const radioView = new RadioView(
-        { x: this.data.viewInfo.w - 120, y: this.data.viewInfo.h - 120 },
-        { w: 100, h: 100 },
-        () => this.data.worldInfo.size,
-        () => this.user.coord.clone()
-      )
 
     this.components = [
-      onlineNum,
-      radioView
+      onlineNum
     ]
   }
 
@@ -33,5 +26,14 @@ export default class UI {
 
   bindUser(user) {
     this.user = user
+
+    const { w: viewWidth, h: viewHeight } = this.data.viewInfo
+    const radioView = new RadioView(
+      { x: viewWidth - 120, y: viewHeight - 120 },
+      { w: 100, h: 100 },
+      () => this.data.worldInfo.size,
+      () => this.user.coord.clone()
+    )
+    this.components.push(radioView)
   }
 }
