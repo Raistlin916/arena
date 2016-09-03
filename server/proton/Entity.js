@@ -37,6 +37,7 @@ export default class Entity extends Obj {
   }
 
   update(dt) {
+    super.update(dt)
     this.velocity.add(this.acc.clone().scale(dt, dt))
     this.coord.add(this.velocity.clone().scale(dt, dt))
     this.angle += this.rotateSpeed * dt

@@ -21,15 +21,17 @@ export default class Rules {
         width: 20,
         height: 20,
         rotateSpeed: Math.PI * 0.2,
-        velocity: { x: math.getRandomInt(-5, 5), y: math.getRandomInt(-5, 5) }
+        velocity: { x: math.getRandomInt(-5, 5), y: 0 }
       }))
     }
   }
 
   addHuman(name) {
     const spawnCoord = {
-      x: math.getRandomInt(0, this.size.w),
-      y: math.getRandomInt(0, this.size.h)
+      // x: math.getRandomInt(0, this.size.w),
+      // y: math.getRandomInt(0, this.size.h)
+      x: 100,
+      y: 100
     }
     const hero = new Hero({
       coord: spawnCoord,

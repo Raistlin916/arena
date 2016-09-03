@@ -4,7 +4,7 @@ import Bullet from './Bullet'
 export default class Gun extends Entity {
   constructor(bundle) {
     super(bundle)
-    this.fireInterval = 0.5
+    this.fireInterval = 500
     this.cooldown = true
     this.elapseAfterFired = 0
   }
@@ -23,16 +23,6 @@ export default class Gun extends Entity {
       velocity: direction.scale(200, 200)
     }))
     this.cooldown = false
-  }
-
-  update(dt) {
-    if (this.cooldown) {
-      return
-    }
-    this.elapseAfterFired += dt
-    if (this.elapseAfterFired >= this.fireInterval) {
-      this.cooldown = true
-      this.elapseAfterFired = 0
-    }
+    this.addInterval('fire', this.fireInterval, () => { this.cooldown = true })
   }
 }

@@ -29,6 +29,7 @@ export default class PolarEntity extends Obj {
   }
 
   update(dt) {
+    super.update(dt)
     this.angle += dt * this.speedOfRotate
 
     this.updateShortcut()
