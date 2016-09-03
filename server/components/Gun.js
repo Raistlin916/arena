@@ -6,7 +6,6 @@ export default class Gun extends Entity {
     super(bundle)
     this.fireInterval = 500
     this.cooldown = true
-    this.elapseAfterFired = 0
   }
 
   tryToFire(world, positionOfFire, direction) {
