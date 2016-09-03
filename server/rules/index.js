@@ -17,7 +17,7 @@ export default class Rules {
 
     for (let i = 0; i < 10; i++) {
       this.world.add(new Box({
-        coord: { x: 150 + i * 30, y: 50 },
+        coord: { x: 150 + i * 40, y: 50 },
         width: 20,
         height: 20,
         rotateSpeed: Math.PI * 0.2,

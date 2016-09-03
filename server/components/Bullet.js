@@ -13,13 +13,13 @@ export default class Bullet extends Entity {
       return
     }
     this.previousCoord = this.coord.clone()
-    super.update(dt)
+    super.update(dt, world)
 
     this.distance += this.coord.clone().sub(this.previousCoord).len()
 
     const circle = new SAT.Circle(this.coord.clone(), this.radius)
     world.query('Box').forEach(box => {
-      const b = new SAT.Box(box.getLTCoord(), box.width, box.height).toPolygon().rotate(box.angle)
+      const b = box.getCollisionSize()
       if (SAT.testCirclePolygon(circle, b)) {
         box.die()
         this.die()
