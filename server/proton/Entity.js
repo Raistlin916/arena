@@ -12,6 +12,8 @@ export default class Entity extends Obj {
     bundle = Object.assign({
       velocity: { x: 0, y: 0 },
       acc: { x: 0, y: 0 },
+      angle: 0,
+      rotateSpeed: 0,
       width: 1,
       height: 1
     }, bundle)
@@ -21,6 +23,8 @@ export default class Entity extends Obj {
     this.acc = new Vector(bundle.acc)
     this.width = bundle.width
     this.height = bundle.height
+    this.angle = bundle.angle
+    this.rotateSpeed = bundle.rotateSpeed
 
     this.updateShortcut()
   }
@@ -35,10 +39,12 @@ export default class Entity extends Obj {
   update(dt) {
     this.velocity.add(this.acc.clone().scale(dt, dt))
     this.coord.add(this.velocity.clone().scale(dt, dt))
+    this.angle += this.rotateSpeed * dt
   }
 
   merge(targetBundle) {
     this.coord = new Vector(targetBundle.coord)
+    this.angle = targetBundle.angle
   }
 
   updateShortcut() {
@@ -51,7 +57,8 @@ export default class Entity extends Obj {
       velocity: this.velocity,
       acc: this.acc,
       width: this.width,
-      height: this.height
+      height: this.height,
+      angle: this.angle
     })
   }
 }
