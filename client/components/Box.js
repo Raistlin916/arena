@@ -6,6 +6,7 @@ export default class Box extends Entity {
     ctx.translate(this.coord.x, this.coord.y)
     ctx.rotate(this.angle)
     ctx.fillStyle = '#FAE766'
+    ctx.lineWidth = 2
     const x = -this.width / 2
     const y = -this.height / 2
     ctx.fillRect(x, y, this.width, this.height)
