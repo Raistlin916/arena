@@ -20,8 +20,8 @@ export default class Rules {
         coord: { x: 150 + i * 40, y: 50 },
         width: 20,
         height: 20,
-        rotateSpeed: Math.PI * 0.2,
-        velocity: { x: math.getRandomInt(-5, 5), y: 0 }
+        rotateSpeed: (Math.random() > 0.5 ? 1 : -1) * Math.PI * 0.1,
+        velocity: { x: (Math.random() > 0.5 ? 10 : -10), y: 0 }
       }))
     }
   }
