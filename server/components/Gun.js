@@ -22,6 +22,6 @@ export default class Gun extends Entity {
       velocity: direction.scale(200, 200)
     }))
     this.cooldown = false
-    this.addInterval('fire', this.fireInterval, () => { this.cooldown = true })
+    this.addInterval(() => { this.cooldown = true }, this.fireInterval)
   }
 }

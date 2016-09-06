@@ -8,6 +8,10 @@ export default class Obj {
   }
 
   update(dt) {
+    this.updateIntervals(dt)
+  }
+
+  updateIntervals(dt) {
     if (this.intervals && this.intervals.length > 0) {
       this.intervals.forEach(item => {
         item.elapse += dt
@@ -19,12 +23,12 @@ export default class Obj {
     }
   }
 
-  addInterval(name, interval, cb) {
+  addInterval(cb, interval) {
     if (!this.intervals) {
       this.intervals = []
     }
     this.intervals.push({
-      cb, interval: interval / 1000, name, elapse: 0
+      cb, interval: interval / 1000, elapse: 0
     })
   }
 

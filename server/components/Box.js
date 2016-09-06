@@ -16,11 +16,11 @@ export default class Box extends Entity {
     const previousVelocity = this.velocity.clone()
     this.acc = direction.normalize().scale(force, force)
     this.inCollision = true
-    this.addInterval('collision', 100, () => { this.inCollision = false })
-    this.addInterval('collisionAcc', 800, () => {
+    this.addInterval(() => { this.inCollision = false }, 100)
+    this.addInterval(() => {
       this.acc.copy({ x: 0, y: 0 })
       this.velocity.copy(previousVelocity)
-    })
+    }, 800)
   }
 
   update(dt, world) {

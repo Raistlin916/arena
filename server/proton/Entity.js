@@ -43,13 +43,14 @@ export default class Entity extends Obj {
     this.angle += this.rotateSpeed * dt
   }
 
+  updateShortcut() {
+
+  }
+
   merge(targetBundle) {
     this.coord = new Vector(targetBundle.coord)
     this.angle = targetBundle.angle
-  }
-
-  updateShortcut() {
-
+    this.rotateSpeed = targetBundle.rotateSpeed
   }
 
   export() {
@@ -59,7 +60,8 @@ export default class Entity extends Obj {
       acc: this.acc,
       width: this.width,
       height: this.height,
-      angle: this.angle
+      angle: this.angle,
+      rotateSpeed: this.rotateSpeed
     })
   }
 }
