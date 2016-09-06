@@ -46,12 +46,6 @@ export default class World extends WorldCore {
         if (item.isDead) {
           return this.remove(item)
         }
-        if (item.gid === this.userGid) {
-          return item.update(dt, this)
-        }
-        if (item.interpolation) {
-          return item.interpolation.update(dt)
-        }
         return item.update(dt, this)
       })
     }
