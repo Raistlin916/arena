@@ -8,7 +8,7 @@ export default class Box extends Entity {
     this.inCollision = false
   }
   getCollisionRange() {
-    return new SAT.Box(this.getLTCoord(), this.width, this.height).toPolygon().rotate(this.angle)
+    return new SAT.Circle(this.coord.clone(), this.width / 2)
   }
 
   update(dt, world) {
@@ -23,7 +23,7 @@ export default class Box extends Entity {
       }
 
       const b = box.getCollisionRange()
-      if (SAT.testPolygonPolygon(a, b)) {
+      if (SAT.testCircleCircle(a, b)) {
         const direction = this.coord.clone().sub(box.coord)
         const s = this.velocity.len()
         this.velocity = direction.normalize().scale(s, s)
