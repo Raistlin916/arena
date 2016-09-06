@@ -25,7 +25,7 @@ export default class Rules {
           width: 20,
           height: 20,
           rotateSpeed: (Math.random() > 0.5 ? 1 : -1) * Math.PI * 0.1,
-          velocity: { x: (Math.random() > 0.5 ? 2 : -2), y: (Math.random() > 0.5 ? 2 : -2) }
+          velocity: { x: math.getRandom(-2, 2), y: math.getRandom(-2, 2) }
         })
     }
     for (let i = 0; i < 10; i++) {
