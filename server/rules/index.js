@@ -14,16 +14,27 @@ export default class Rules {
       size: this.size
     })
     this.world.run()
+    this.initBoxGenerator()
+  }
 
-    for (let i = 0; i < 10; i++) {
-      this.world.add(new Box({
-        coord: { x: 150 + i * 40, y: 50 },
-        width: 20,
-        height: 20,
-        rotateSpeed: (Math.random() > 0.5 ? 1 : -1) * Math.PI * 0.1,
-        velocity: { x: (Math.random() > 0.5 ? 10 : -10), y: 0 }
-      }))
+  initBoxGenerator() {
+    const boxFactory = {
+      create: () =>
+        new Box({
+          coord: { x: math.getRandomInt(0, this.size.w), y: math.getRandomInt(0, this.size.w) },
+          width: 20,
+          height: 20,
+          rotateSpeed: (Math.random() > 0.5 ? 1 : -1) * Math.PI * 0.1,
+          velocity: { x: (Math.random() > 0.5 ? 2 : -2), y: (Math.random() > 0.5 ? 2 : -2) }
+        })
     }
+    for (let i = 0; i < 10; i++) {
+      this.world.add(boxFactory.create())
+    }
+
+    setInterval(() =>
+      this.world.add(boxFactory.create())
+    , 5000)
   }
 
   addHuman(name) {

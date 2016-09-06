@@ -7,8 +7,20 @@ export default class Box extends Entity {
 
     this.inCollision = false
   }
+
   getCollisionRange() {
     return new SAT.Circle(this.coord.clone(), this.width / 2)
+  }
+
+  knock(direction, force) {
+    const previousVelocity = this.velocity.clone()
+    this.acc = direction.normalize().scale(force, force)
+    this.inCollision = true
+    this.addInterval('collision', 100, () => { this.inCollision = false })
+    this.addInterval('collisionAcc', 800, () => {
+      this.acc.copy({ x: 0, y: 0 })
+      this.velocity.copy(previousVelocity)
+    })
   }
 
   update(dt, world) {
@@ -25,14 +37,8 @@ export default class Box extends Entity {
       const b = box.getCollisionRange()
       if (SAT.testCircleCircle(a, b)) {
         const direction = this.coord.clone().sub(box.coord)
-        const s = this.velocity.len()
-        this.velocity = direction.normalize().scale(s, s)
-        this.inCollision = true
-        this.addInterval('collision', 20, () => { this.inCollision = false })
-
-        box.velocity = direction.clone().reverse()
-        box.inCollision = true
-        box.addInterval('collision', 20, () => { box.inCollision = false })
+        this.knock(direction, 50)
+        box.knock(direction.clone().reverse(), 50)
         return true
       }
       return false
