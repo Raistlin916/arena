@@ -8,7 +8,6 @@ export default class Entity extends CoreEntity {
   }
 
   update(dt) {
-    super.update(dt)
     this.interpolation.update(dt)
   }
 }
