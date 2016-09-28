@@ -1,7 +1,7 @@
-import Entity from '../proton/Entity'
+import Life from './Life'
 import SAT from '../lib/SAT'
 
-export default class Box extends Entity {
+export default class Box extends Life {
   constructor(...args) {
     super(...args)
 

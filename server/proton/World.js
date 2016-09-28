@@ -9,6 +9,7 @@ export default class World {
     this.retrieve = new Retrieve(this.objects)
     this.timer = new Timer()
     this.size = bundle.size
+    this.round = 0
   }
 
   add(obj) {
@@ -32,6 +33,7 @@ export default class World {
   run() {
     this.timer.cancelFrame()
     const round = dt => {
+      this.round += 1
       this.timer.requestFrame(round)
 
       this.objects.forEach(item => {
