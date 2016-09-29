@@ -2,7 +2,7 @@ import math from '../lib/math'
 import World from '../proton/World'
 import Box from '../components/Box'
 import Hero from '../components/Hero'
-import Human from './Human.js'
+import Human from './Human'
 
 export default class Rules {
   constructor() {
