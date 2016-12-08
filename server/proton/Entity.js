@@ -27,6 +27,7 @@ export default class Entity extends Obj {
     this.rotateSpeed = bundle.rotateSpeed
 
     this.updateShortcut()
+    this.trigger('init')
   }
 
   getLTCoord() {

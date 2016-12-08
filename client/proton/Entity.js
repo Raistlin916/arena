@@ -56,6 +56,10 @@ export default class Entity extends CoreEntity {
     this.interpolation.update(dt)
   }
 
+  onHeard(events) {
+    return this
+  }
+
   die() {
     if (this.fsm.isAt('dead')) {
       return

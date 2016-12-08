@@ -96,29 +96,35 @@ export default class World extends WorldCore {
     })
 
     socket.on('sync', data => {
-      this.objects.forEach(item => {
-        if (item.gid === this.userGid) {
+      this.objects.forEach(entity => {
+        if (entity.gid === this.userGid) {
           return
         }
-        const exist = data.entities.some(entity => {
-          if (entity.gid === item.gid) {
-            if (item.interpolation) {
-              item.interpolation.set(entity)
+        const exist = data.entities.some(bundle => {
+          if (bundle.gid === entity.gid) {
+            if (bundle.events) {
+              bundle.events.forEach(e => entity.onHeard(e))
             }
-            data.entities.splice(data.entities.indexOf(entity), 1)
+            if (entity.interpolation) {
+              entity.interpolation.set(bundle)
+            }
+            data.entities.splice(data.entities.indexOf(bundle), 1)
             return true
           }
           return false
         })
         if (!exist) {
-          item.die()
+          entity.die()
         }
       })
-      data.entities.forEach(item => {
-        if (item.gid === this.userGid) {
+      data.entities.forEach(bundle => {
+        if (bundle.gid === this.userGid) {
           return
         }
-        const entity = this.entityFactory(item.className, item)
+        const entity = this.entityFactory(bundle.className, bundle)
+        if (bundle.events) {
+          bundle.events.forEach(e => entity.onHeard(e))
+        }
         this.add(entity)
       })
     })

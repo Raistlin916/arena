@@ -6,12 +6,13 @@ export default class Box extends Entity {
     super(...args)
 
     this.bgColor = '#FAE766'
+    this.opacity = 1
   }
 
   render(ctx) {
     ctx.save()
-    this.renderNewBirth(ctx)
     ctx.translate(this.coord.x, this.coord.y)
+    ctx.globalAlpha = this.opacity
     ctx.rotate(this.angle)
     ctx.fillStyle = this.bgColor
     ctx.lineWidth = 2
@@ -24,9 +25,11 @@ export default class Box extends Entity {
     ctx.restore()
   }
 
-  renderNewBirth(ctx) {
-    if (this.lifeAtClient < 0.5) {
-      ctx.globalAlpha = this.lifeAtClient * 2
+  onHeard(events) {
+    if (events === 'init') {
+      this.tweens.add('init', 1000, percent => {
+        this.opacity = percent
+      }, 'easeInQuad')
     }
   }
 

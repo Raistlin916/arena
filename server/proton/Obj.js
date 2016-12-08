@@ -40,10 +40,22 @@ export default class Obj {
     this.isDead = true
   }
 
+  trigger(name) {
+    if (!this.events) {
+      this.events = []
+    }
+    this.events.push(name)
+  }
+
   export() {
-    return {
+    const bundle = {
       className: this.className,
       gid: this.gid
     }
+    if (this.events) {
+      bundle.events = this.events
+      this.events = null
+    }
+    return bundle
   }
 }
