@@ -10,6 +10,7 @@ export default class Box extends Entity {
 
   render(ctx) {
     ctx.save()
+    this.renderNewBirth(ctx)
     ctx.translate(this.coord.x, this.coord.y)
     ctx.rotate(this.angle)
     ctx.fillStyle = this.bgColor
@@ -21,6 +22,12 @@ export default class Box extends Entity {
     ctx.strokeStyle = '#8B8C8B'
     ctx.strokeRect(x, y, this.width, this.height)
     ctx.restore()
+  }
+
+  renderNewBirth(ctx) {
+    if (this.lifeAtClient < 0.5) {
+      ctx.globalAlpha = this.lifeAtClient * 2
+    }
   }
 
   onDie() {

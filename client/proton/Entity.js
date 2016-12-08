@@ -41,10 +41,12 @@ export default class Entity extends CoreEntity {
     }, 'idle')
 
     this.tweens = new Tweens()
+    this.lifeAtClient = 0
   }
 
   update(dt) {
     this.tweens.update(dt)
+    this.lifeAtClient += dt
 
     if (this.fsm.isAt('dead')) {
       super.update(dt)
