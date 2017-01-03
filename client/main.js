@@ -3,7 +3,6 @@ import World from './World'
 
 import Box from './entities/Box'
 import Tank from './entities/Tank'
-import Bullet from './entities/Bullet'
 
 const getSize = () => {
   const container = document.querySelector('.container')
@@ -27,10 +26,7 @@ window.onload = () => {
     world.run()
 
     world.addEntity(new Box({ x: 100, y: 100 }))
-
     world.addEntity(new Tank({ x: 100, y: 100 }))
-
-    world.addEntity(new Bullet({ x: 50, y: 50 }, { x: 100, y: 0 }))
   }
 }
 

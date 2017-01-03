@@ -7,6 +7,6 @@ export default class RenderSystem {
     if (!entity.display || !entity.position) {
       return
     }
-    entity.display.render(this.ctx, entity.position)
+    entity.display.render(this.ctx, entity)
   }
 }

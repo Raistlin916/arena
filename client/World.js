@@ -60,8 +60,8 @@ export default class World {
 
   update(dt) {
     this.entities.forEach(entity => {
-      this.InputHandlerSystem.update(entity, dt)
-      this.PhysicsSystem.update(entity, dt)
+      this.InputHandlerSystem.update(entity, dt, this)
+      this.PhysicsSystem.update(entity, dt, this)
     })
   }
 }

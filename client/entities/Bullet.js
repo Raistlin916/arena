@@ -10,7 +10,7 @@ class BulletDisplay extends Display {
     this.radius = 5
   }
 
-  render(ctx, position) {
+  render(ctx, { position }) {
     ctx.save()
     ctx.fillStyle = '#68C9E9'
     ctx.strokeStyle = '#8B8C8B'

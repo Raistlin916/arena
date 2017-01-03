@@ -3,36 +3,34 @@ import Display from '../components/Display'
 import Position from '../components/Position'
 import Transform from '../components/Transform'
 import Input from '../components/Input'
+import Steering from '../components/Steering'
+import Gun from '../components/Gun'
+
 import ctxUtils from '../lib/ctxUtils'
 
 class TankDisplay extends Display {
 
-  constructor() {
+  constructor(width, height) {
     super()
     this.bgColor = '#FAE766'
-    this.width = 30
-    this.height = 30
+    this.width = width
+    this.height = height
     this.angle = 0
     this.scale = 1
     this.opacity = 1
     this.name = '匿名'
 
     this.r = Math.min(this.width, this.height) / 2
-    // this.gun = new Gun({
-    //   coord: { x: this.r, y: this.r - 10 },
-    //   width: 30,
-    //   height: 20
-    // })
   }
 
-  render(ctx, position) {
+  render(ctx, { position, steering, gun }) {
     ctx.save()
     ctx.translate(position.x, position.y)
-    ctx.rotate(this.radiansOfAngle)
+    ctx.rotate(steering.angle)
 
     ctx.save()
     ctx.translate(-this.r, -this.r)
-    // this.gun.render(ctx)
+    gun.display.render(ctx)
     ctx.restore()
 
     ctx.beginPath()
@@ -43,6 +41,7 @@ class TankDisplay extends Display {
     ctx.fillStyle = '#68C9E9'
     ctx.fill()
     ctx.stroke()
+
 
     ctx.restore()
 
@@ -59,9 +58,17 @@ class TankDisplay extends Display {
 export default class Box extends Entity {
   constructor(pos, velocity = { x: 0, y: 0 }) {
     super()
-    this.display = new TankDisplay()
+
+    const gunWidth = 30
+    const gunHeight = 20
+    const width = 50
+    const height = 50
+    this.gun = new Gun(gunWidth, gunHeight, { x: width - 10, y: height / 2 - 10 })
+
+    this.display = new TankDisplay(width, height)
     this.position = new Position(pos.x, pos.y)
     this.transform = new Transform(velocity)
+    this.steering = new Steering(0, Math.PI, 100)
     this.input = new Input()
   }
 }

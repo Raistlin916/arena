@@ -15,7 +15,7 @@ class BoxDisplay extends Display {
     this.opacity = 1
   }
 
-  render(ctx, position) {
+  render(ctx, { position }) {
     ctx.save()
     ctx.translate(position.x, position.y)
     ctx.globalAlpha = this.opacity
