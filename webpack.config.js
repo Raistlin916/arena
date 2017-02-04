@@ -9,12 +9,12 @@ const config = {
   devtool: env === 'dev' && 'source-map',
   entry: {
     main: [
-      'webpack-dev-server/client?http://localhost:8082',
+      // 'webpack-dev-server/client?http://localhost:8082',
       './client/main'
     ]
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['.js']
   },
   output: {
     path: path.join(__dirname, './www/static/build/'),
@@ -22,23 +22,26 @@ const config = {
     filename: '[name].bundle.js'
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loaders: ['babel']
+      use: ['babel-loader']
     }, {
       test: /\.s?css$/,
-      loaders: ['style', 'css?-minimize', 'sass', 'postcss-loader']
+      use: ['style-loader', 'css-loader', 'postcss-loader']
     }]
   },
-  postcss: function postcss() {
-    return [precss, autoprefixer]
-  },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env),
+    }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: [
+          precss(),
+          autoprefixer()
+        ]
+      }
     })
   ]
 }
