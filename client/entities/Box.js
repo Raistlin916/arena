@@ -8,8 +8,8 @@ class BoxDisplay extends Display {
   constructor() {
     super()
     this.bgColor = '#FAE766'
-    this.width = 10
-    this.height = 10
+    this.width = 20
+    this.height = 20
     this.angle = 0
     this.scale = 1
     this.opacity = 1

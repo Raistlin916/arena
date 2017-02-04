@@ -13,8 +13,7 @@ const getSize = () => {
 }
 
 window.onload = () => {
-  const busi = new Business()
-  busi.onLogin = name => {
+  const onLogin = name => {
     const size = getSize()
     const canvas = document.querySelector('canvas')
     canvas.width = size.width
@@ -28,5 +27,6 @@ window.onload = () => {
     world.addEntity(new Box({ x: 100, y: 100 }))
     world.addEntity(new Tank({ x: 100, y: 100 }))
   }
+  new Business(onLogin)
 }
 

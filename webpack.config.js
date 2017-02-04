@@ -9,7 +9,7 @@ const config = {
   devtool: env === 'dev' && 'source-map',
   entry: {
     main: [
-      // 'webpack-dev-server/client?http://localhost:8082',
+      'webpack-dev-server/client?http://localhost:8082',
       './client/main'
     ]
   },

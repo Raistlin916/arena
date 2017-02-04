@@ -2,7 +2,8 @@ import 'normalize.css'
 import './styles/index.scss'
 
 export default class Business {
-  constructor() {
+  constructor(onLogin) {
+    this.onLogin = onLogin
     this.initLoginComponent()
   }
 
@@ -13,5 +14,8 @@ export default class Business {
       loginWrap.style.display = 'none';
       this.onLogin(nameInput.value)
     }
+
+    this.onLogin('test');
+    loginWrap.style.display = 'none';
   }
 }

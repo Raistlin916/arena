@@ -1,7 +1,7 @@
 import './lib/requestAnimation'
 import RenderSystem from './systems/RenderSystem'
 import PhysicsSystem from './systems/PhysicsSystem'
-import InputHandlerSystem from './systems/InputHandlerSystem'
+import OperatingSystem from './systems/OperatingSystem'
 
 export default class World {
   constructor(bundle, canvas, socket) {
@@ -17,9 +17,8 @@ export default class World {
       () => new Date().getTime()
 
     this.renderSystem = new RenderSystem(this.ctx)
-    this.PhysicsSystem = new PhysicsSystem()
-    this.InputHandlerSystem = new InputHandlerSystem()
-
+    this.physicsSystem = new PhysicsSystem()
+    this.operatingSystem = new OperatingSystem()
 
     this.entities = []
   }
@@ -51,6 +50,12 @@ export default class World {
     this.entities.push(entity)
   }
 
+  removeEntity(entity) {
+    this.entities.splice(
+      this.entities.indexOf(entity), 1
+    )
+  }
+
   render() {
     this.ctx.clearRect(0, 0, this.viewInfo.w, this.viewInfo.h)
     this.entities.forEach(entity =>
@@ -60,8 +65,8 @@ export default class World {
 
   update(dt) {
     this.entities.forEach(entity => {
-      this.InputHandlerSystem.update(entity, dt, this)
-      this.PhysicsSystem.update(entity, dt, this)
+      this.operatingSystem.update(entity, dt, this)
+      this.physicsSystem.update(entity, dt, this)
     })
   }
 }

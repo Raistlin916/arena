@@ -25,18 +25,20 @@ export default class InputHandlerSystem {
       steering.maxSpeed = -100
     }
 
-
+    const { gun } = entity
+    if (gun) {
+      gun.lastFiredElapse += dt
+    }
     if (activeMap.space) {
-      const { gun } = entity
-
       if (gun.lastFiredElapse > gun.cooldown) {
         const bulletVelocity = vector.setAngle(gun.bulletSpeed, steering.angle)
         const bulletPosition = vector.add(position, gun.position)
         const bullet = new Bullet(bulletPosition, bulletVelocity)
         world.addEntity(bullet)
+        setTimeout(() => {
+          world.removeEntity(bullet)
+        }, 200 / gun.bulletSpeed * 1000)
         gun.lastFiredElapse = 0
-      } else {
-        gun.lastFiredElapse += dt
       }
     }
   }
