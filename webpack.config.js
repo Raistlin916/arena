@@ -28,7 +28,7 @@ const config = {
       use: ['babel-loader']
     }, {
       test: /\.s?css$/,
-      use: ['style-loader', 'css-loader', 'postcss-loader']
+      use: ['style-loader', 'css-loader'/* , 'postcss-loader'*/]
     }]
   },
   plugins: [

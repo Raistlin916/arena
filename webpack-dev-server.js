@@ -6,13 +6,14 @@ new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   noInfo: true,
   historyApiFallback: true,
+  // disableHostCheck: true,
   stats: {
     colors: true,
   },
   headers: {
     'Access-Control-Allow-Origin': '*',
   },
-}).listen(8082, err => {
+}).listen(8082, '0.0.0.0', err => {
   if (err) {
     console.log(err);
   }
