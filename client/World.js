@@ -1,6 +1,7 @@
 import './lib/requestAnimation'
 import RenderSystem from './systems/RenderSystem'
 import PhysicsSystem from './systems/PhysicsSystem'
+import CollisionSystem from './systems/CollisionSystem'
 import OperatingSystem from './systems/OperatingSystem'
 
 export default class World {
@@ -19,6 +20,7 @@ export default class World {
     this.renderSystem = new RenderSystem(this.ctx)
     this.physicsSystem = new PhysicsSystem()
     this.operatingSystem = new OperatingSystem()
+    this.collisionSystem = new CollisionSystem()
 
     this.entities = []
   }
@@ -46,14 +48,19 @@ export default class World {
     requestAnimationFrame(frame)
   }
 
+  getEntities() {
+    return this.entities
+  }
+
   addEntity(entity) {
     this.entities.push(entity)
   }
 
   removeEntity(entity) {
-    this.entities.splice(
-      this.entities.indexOf(entity), 1
-    )
+    const index = this.entities.indexOf(entity)
+    if (index > -1) {
+      this.entities.splice(index, 1)
+    }
   }
 
   render() {
@@ -67,6 +74,7 @@ export default class World {
     this.entities.forEach(entity => {
       this.operatingSystem.update(entity, dt, this)
       this.physicsSystem.update(entity, dt, this)
+      this.collisionSystem.update(entity, dt, this)
     })
   }
 }

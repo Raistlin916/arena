@@ -24,7 +24,7 @@ window.onload = () => {
     }, canvas, socket)
     world.run()
 
-    world.addEntity(new Box({ x: 100, y: 100 }))
+    world.addEntity(new Box({ x: 300, y: 100 }))
     world.addEntity(new Tank({ x: 100, y: 100 }))
   }
   new Business(onLogin)

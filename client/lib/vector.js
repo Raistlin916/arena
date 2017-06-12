@@ -6,7 +6,6 @@ const v = {
     }
   },
   getLength({ x, y }) {
-    console.log(x, y)
     return Math.sqrt(x * x, y * y)
   },
   isVector(vector) {
