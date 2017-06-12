@@ -11,6 +11,7 @@ export default class GunDisplay extends Display {
     const { x, y } = position
     const { width, height } = this
     ctx.save()
+    ctx.translate(-2, -this.height / 2)
     ctx.lineWidth = 1.5
     ctx.beginPath()
     ctx.strokeStyle = '#8B8C8B'

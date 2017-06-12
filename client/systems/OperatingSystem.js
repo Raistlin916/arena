@@ -32,7 +32,7 @@ export default class InputHandlerSystem {
     if (activeMap.space) {
       if (gun.lastFiredElapse > gun.cooldown) {
         const bulletVelocity = vector.setAngle(gun.bulletSpeed, steering.angle)
-        const bulletPosition = vector.add(position, gun.position)
+        const bulletPosition = vector.add(position, vector.setAngle(gun.position, steering.angle))
         const bullet = new Bullet(bulletPosition, bulletVelocity)
         world.addEntity(bullet)
         setTimeout(() => {

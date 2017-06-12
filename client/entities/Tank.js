@@ -11,10 +11,12 @@ export default class Tank extends Entity {
 
     const gunWidth = 30
     const gunHeight = 20
-    const width = 50
-    const height = 50
-    this.gun = new Gun(gunWidth, gunHeight, { x: width - 10, y: height / 2 - 10 })
 
+    this.size = {
+      w: 20,
+      h: 20
+    }
+    this.gun = new Gun(gunWidth, gunHeight, { x: this.size.w, y: this.size.h / 2 })
     this.position = new Position(pos.x, pos.y)
     this.transform = new Transform(velocity)
     this.steering = new Steering(0, Math.PI, 100)
