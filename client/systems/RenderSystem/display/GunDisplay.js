@@ -1,7 +1,6 @@
 import Display from './Display'
 
 export default class GunDisplay extends Display {
-
   constructor() {
     super()
     this.width = 10
