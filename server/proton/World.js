@@ -2,7 +2,6 @@ import Retrieve from './quarks/Retrieve'
 import Timer from './Timer'
 
 export default class World {
-
   constructor(bundle) {
     this.objects = []
 
