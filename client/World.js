@@ -1,8 +1,10 @@
 import './lib/requestAnimation'
+import Interval from './lib/Interval'
 import RenderSystem from './systems/RenderSystem'
 import PhysicsSystem from './systems/PhysicsSystem'
 import CollisionSystem from './systems/CollisionSystem'
 import OperatingSystem from './systems/OperatingSystem'
+import LifeSystem from './systems/LifeSystem'
 
 export default class World {
   constructor(bundle, canvas, socket) {
@@ -17,35 +19,57 @@ export default class World {
       () => window.performance.now() :
       () => new Date().getTime()
 
+    this.interval = new Interval()
+
     this.renderSystem = new RenderSystem(this.ctx)
     this.physicsSystem = new PhysicsSystem()
     this.operatingSystem = new OperatingSystem()
     this.collisionSystem = new CollisionSystem()
+    this.lifeSystem = new LifeSystem()
 
     this.entities = []
   }
 
+  addInterval(...args) {
+    this.interval.add(...args)
+  }
+
+  clearInterval(...args) {
+    this.interval.clear(...args)
+  }
+
   run() {
+    this.last = this.timestamp()
+    if (this.frame) {
+      this.rid = requestAnimationFrame(this.frame)
+      return
+    }
     let now
     let dt = 0
-    let last = this.timestamp()
+    let totalTime = 0
     const slow = 1
     const step = 1 / 60
     const slowStep = slow * step
 
-    const frame = () => {
+    this.frame = () => {
       now = this.timestamp()
-      dt += Math.min(1, (now - last) / 1000)
+      dt += Math.min(1, (now - this.last) / 1000)
       while (dt > slowStep) {
         dt -= slowStep
+        totalTime += step
+        this.interval.update(totalTime)
         this.update(step)
       }
       this.render()
-      last = now
-      requestAnimationFrame(frame)
+      this.last = now
+      this.rid = requestAnimationFrame(this.frame)
     }
 
-    requestAnimationFrame(frame)
+    this.rid = requestAnimationFrame(this.frame)
+  }
+
+  pause() {
+    cancelAnimationFrame(this.rid)
   }
 
   getEntities() {
@@ -75,6 +99,7 @@ export default class World {
       this.operatingSystem.update(entity, dt, this)
       this.physicsSystem.update(entity, dt, this)
       this.collisionSystem.update(entity, dt, this)
+      this.lifeSystem.update(entity, dt, this)
     })
   }
 }

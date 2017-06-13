@@ -35,7 +35,7 @@ export default class InputHandlerSystem {
         const bulletPosition = vector.add(position, vector.setAngle(gun.position, steering.angle))
         const bullet = new Bullet(bulletPosition, bulletVelocity)
         world.addEntity(bullet)
-        setTimeout(() => {
+        world.addInterval(() => {
           world.removeEntity(bullet)
         }, 200 / gun.bulletSpeed * 1000)
         gun.lastFiredElapse = 0
