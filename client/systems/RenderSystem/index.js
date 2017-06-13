@@ -11,11 +11,11 @@ export default class RenderSystem {
     this.ctx = ctx
   }
 
-  render(entity) {
+  render(entity, world) {
     if (!entity.position) {
       return
     }
     const display = new displayMap[`${entity.constructor.name}Display`]()
-    display.render(this.ctx, entity)
+    display.render(this.ctx, entity, world)
   }
 }

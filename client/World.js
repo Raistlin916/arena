@@ -28,6 +28,7 @@ export default class World {
     this.lifeSystem = new LifeSystem()
 
     this.entities = []
+    this.elapsed = 0
   }
 
   addInterval(...args) {
@@ -46,7 +47,6 @@ export default class World {
     }
     let now
     let dt = 0
-    let totalTime = 0
     const slow = 1
     const step = 1 / 60
     const slowStep = slow * step
@@ -56,8 +56,8 @@ export default class World {
       dt += Math.min(1, (now - this.last) / 1000)
       while (dt > slowStep) {
         dt -= slowStep
-        totalTime += step
-        this.interval.update(totalTime)
+        this.elapsed += step
+        this.interval.update(this.elapsed)
         this.update(step)
       }
       this.render()
@@ -90,7 +90,7 @@ export default class World {
   render() {
     this.ctx.clearRect(0, 0, this.viewInfo.w, this.viewInfo.h)
     this.entities.forEach(entity =>
-      this.renderSystem.render(entity)
+      this.renderSystem.render(entity, this)
     )
   }
 

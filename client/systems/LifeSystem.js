@@ -1,9 +1,12 @@
 export default class LifeSystem {
   update(entity, dt, world) {
-    if (entity.HP === undefined) {
+    if (!entity.life) {
       return
     }
-    if (entity.HP <= 0) {
+    if (entity.life.HP <= 0 && !entity.life.deadAt) {
+      entity.life.deadAt = world.elapsed
+    }
+    if (entity.life.destroyed) {
       world.removeEntity(entity)
     }
   }
