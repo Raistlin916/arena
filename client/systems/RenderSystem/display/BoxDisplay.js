@@ -23,7 +23,7 @@ export default class BoxDisplay extends Display {
 
     if (display.hurtProgress) {
       ctx.fillStyle = display.hurtColor
-      ctx.globalAlpha = 1 - display.hurtProgress
+      ctx.globalAlpha = 0.7 - Math.abs(0.3 - display.hurtProgress)
       ctx.fillRect(x, y, size.w, size.h)
     }
 

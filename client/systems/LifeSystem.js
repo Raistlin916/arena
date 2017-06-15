@@ -20,9 +20,9 @@ export default class LifeSystem {
         life.destroyed = true
       }
     } else if (life.lastHurtAt) {
-      const percent = Math.min(1, (world.elapsed - life.lastHurtAt) * 1000 / 200)
+      const percent = Math.min(1, (world.elapsed - life.lastHurtAt) * 1000 / 300)
 
-      display.hurtColor = 'pink'
+      display.hurtColor = '#e74c3c'
       display.hurtProgress = percent
 
       if (percent === 1) {
