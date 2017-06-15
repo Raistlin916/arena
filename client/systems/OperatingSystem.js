@@ -36,7 +36,7 @@ export default class InputHandlerSystem {
         const bullet = new Bullet(bulletPosition, bulletVelocity)
         world.addEntity(bullet)
         world.addInterval(() => {
-          world.removeEntity(bullet)
+          bullet.life.HP = 0
         }, 200 / gun.bulletSpeed * 1000)
         gun.lastFiredElapse = 0
       }

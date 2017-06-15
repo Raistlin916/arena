@@ -5,10 +5,12 @@ import Size from '../components/Size'
 import Collision from '../components/Collision'
 import Damage from '../components/Damage'
 import Life from '../components/Life'
+import Display from '../components/Display'
 
 export default class Bullet extends Entity {
   constructor(pos, velocity = { x: 0, y: 0 }) {
     super()
+    this.display = new Display()
     this.position = new Position(pos.x, pos.y)
     this.velocity = new Velocity(velocity)
     this.size = new Size(5, 5)

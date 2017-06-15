@@ -7,7 +7,7 @@ export default class BoxDisplay extends Display {
     this.strokeColor = '#8B8C8B'
   }
 
-  render(ctx, { position, size, life, display }, world) {
+  render(ctx, { position, size, display }) {
     ctx.save()
     ctx.translate(position.x, position.y)
     ctx.globalAlpha = display.opacity
@@ -21,23 +21,10 @@ export default class BoxDisplay extends Display {
     ctx.strokeStyle = this.strokeColor
     ctx.strokeRect(x, y, size.w, size.h)
 
-    if (life.deadAt) {
-      const percent = Math.min(1, (world.elapsed - life.deadAt) * 5)
-      display.opacity = 1 - percent
-      display.scale = 1 + 1.5 * percent
-
-      if (percent === 1) {
-        life.destroyed = true
-      }
-    } else if (life.lastHurtAt) {
-      const percent = Math.min(1, (world.elapsed - life.lastHurtAt) * 10)
-      ctx.fillStyle = 'pink'
-      ctx.globalAlpha = 1 - percent
+    if (display.hurtProgress) {
+      ctx.fillStyle = display.hurtColor
+      ctx.globalAlpha = 1 - display.hurtProgress
       ctx.fillRect(x, y, size.w, size.h)
-
-      if (percent === 1) {
-        life.lastHurtAt = null
-      }
     }
 
     ctx.restore()
