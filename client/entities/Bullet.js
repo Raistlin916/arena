@@ -14,7 +14,9 @@ export default class Bullet extends Entity {
     this.position = new Position(pos.x, pos.y)
     this.velocity = new Velocity(velocity)
     this.size = new Size(5, 5)
-    this.collision = new Collision('circle')
+    this.collision = new Collision({
+      type: 'circle'
+    })
     this.damage = new Damage(30)
     this.life = new Life(100)
   }

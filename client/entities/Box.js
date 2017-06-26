@@ -13,7 +13,10 @@ export default class Box extends Entity {
     this.position = new Position(pos.x, pos.y)
     this.velocity = new Velocity(velocity)
     this.size = new Size(20, 20)
-    this.collision = new Collision('circle')
+    this.collision = new Collision({
+      type: 'circle',
+      rigid: true
+    })
     this.life = new Life(100)
   }
 }
