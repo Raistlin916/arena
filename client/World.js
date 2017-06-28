@@ -21,7 +21,17 @@ export default class World {
 
     this.interval = new Interval()
 
-    this.renderSystem = new RenderSystem(this.ctx)
+    const setRenderMultiple = (ctx, multiple) => {
+      const canvas = ctx.canvas
+      canvas.style.transformOrigin = 'left top'
+      canvas.style.transform = `scale(${1 / multiple}, ${1 / multiple})`
+      canvas.width *= multiple
+      canvas.height *= multiple
+      ctx.scale(multiple, multiple)
+    }
+    setRenderMultiple(this.ctx, 2)
+
+    this.renderSystem = new RenderSystem()
     this.physicsSystem = new PhysicsSystem()
     this.operatingSystem = new OperatingSystem()
     this.collisionSystem = new CollisionSystem()
@@ -90,7 +100,7 @@ export default class World {
   render() {
     this.ctx.clearRect(0, 0, this.viewInfo.w, this.viewInfo.h)
     this.entities.forEach(entity =>
-      this.renderSystem.render(entity, this)
+      this.renderSystem.render(this.ctx, entity, this)
     )
   }
 

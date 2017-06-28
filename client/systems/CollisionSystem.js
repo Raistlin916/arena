@@ -28,7 +28,7 @@ export default class CollisionSystem {
     const SATCircle = new SAT.Circle(position, size.w / 2)
     if (rigid) {
       world.getEntities().forEach(item => {
-        if (item === entity || !item.collision) {
+        if (item === entity || !item.collision || !item.collision.rigid) {
           return
         }
         if (SAT.testCircleCircle(
