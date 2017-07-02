@@ -32,13 +32,13 @@ export default class Server {
       this.io.sockets.emit('sync', {
         entities: this.rules.getEntities()
       })
-    , 100)
+      , 100)
 
     setInterval(() =>
       this.io.sockets.emit('business', {
         onlineNum: this.rules.countOnlineNumber()
       })
-    , 1000)
+      , 1000)
   }
 }
 

@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'dev') {
 
 app.use(router.routes())
 app.use(router.allowedMethods())
-app.use(async (ctx) =>
+app.use(async ctx =>
   send(ctx, ctx.path, { root: path.join(__dirname, '/static') })
 )
 
@@ -49,14 +49,13 @@ const server = http.createServer(app.callback())
 io.attach(server)
 
 io.use((socket, next) => {
-  co(function*() {
+  co(function* coFunc() {
     if (socket.handshake.headers.cookie === undefined) {
       return next(null, true)
     }
     const sid = cookie.parse(socket.handshake.headers.cookie)['koa.sid']
-    const session = yield sessionStore.get(`koa:sess:${sid}`)
-    socket.session = session
-    next(null, true)
+    socket.session = yield sessionStore.get(`koa:sess:${sid}`)
+    return next(null, true)
   })
 })
 
