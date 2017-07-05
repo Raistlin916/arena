@@ -10,12 +10,15 @@
     "dev_server": "NODE_ENV=dev node index.babel.js",
     "lint": "eslint static"
   },
-  "author": "",
+  "repository": {
+    "git": "https://github.com/Raistlin916/arena.git"
+  },
+  "author": "gk",
   "license": "ISC",
   "dependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.0",
+    "babel-loader": "^7.1.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
@@ -28,7 +31,7 @@
     "koa-favicon": "^2.0.0",
     "koa-generic-session": "^1.11.6",
     "koa-jade": "^2.1.0",
-    "koa-logger": "^3.0.0",
+    "koa-logger": "^3.0.1",
     "koa-proxy": "^0.8.0",
     "koa-redis": "^3.0.0",
     "koa-router": "^7.2.1",
@@ -46,10 +49,10 @@
     "css-loader": "^0.28.4",
     "eslint": "^4.1.1",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-import": "^2.6.1",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
-    "precss": "^1.4.0",
+    "precss": "^2.0.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2"
   }
